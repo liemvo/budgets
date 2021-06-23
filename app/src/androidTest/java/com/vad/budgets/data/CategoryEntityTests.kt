@@ -46,6 +46,7 @@ class CategoryEntityTests {
         assertTrue(categories.size == 1)
         assertNotNull(saveCategory.categoryId)
         assertEquals(category.name, saveCategory.name)
+        assertEquals(category.defaultAmount, saveCategory.defaultAmount)
     }
     
     @Test
@@ -74,5 +75,24 @@ class CategoryEntityTests {
         
         categoryDao.clearCategories()
         assertTrue(categoryDao.getAll().isEmpty())
+    }
+    
+    @Test
+    @Throws(IOException::class)
+    fun insertDuplicateCategoryName_ThenIgnore() {
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category2 = Category(name = "Rent", defaultAmount = 50f, isActive = true)
+        val result = categoryDao.insert(category)
+        val result2 = categoryDao.insert(category2)
+        
+        val categories = categoryDao.getAll()
+        
+        assertTrue(categories.size == 1)
+        val saveCategory = categories.first()
+        
+        assertEquals(1, result)
+        assertEquals(-1, result2)
+        assertEquals(category.defaultAmount, saveCategory.defaultAmount)
+        assertEquals(category.name, saveCategory.name)
     }
 }

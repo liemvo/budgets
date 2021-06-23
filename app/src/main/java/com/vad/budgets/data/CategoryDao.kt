@@ -11,7 +11,7 @@ interface CategoryDao {
     @Query("SELECT * FROM categories ORDER BY categoryId DESC")
     fun getAll(): List<Category>
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(category: Category) : Long
     
     @Update
