@@ -41,12 +41,12 @@ class CategoryEntityTests {
         
         val categories = categoryDao.getAll()
         
-        val saveCategory = categories.first()
+        val savedCategory = categories.first()
         
         assertTrue(categories.size == 1)
-        assertNotNull(saveCategory.categoryId)
-        assertEquals(category.name, saveCategory.name)
-        assertEquals(category.defaultAmount, saveCategory.defaultAmount)
+        assertNotNull(savedCategory.categoryId)
+        assertEquals(category.name, savedCategory.name)
+        assertEquals(category.defaultAmount, savedCategory.defaultAmount)
     }
     
     @Test
@@ -88,11 +88,11 @@ class CategoryEntityTests {
         val categories = categoryDao.getAll()
         
         assertTrue(categories.size == 1)
-        val saveCategory = categories.first()
+        val savedCategory = categories.first()
         
         assertEquals(1, result)
         assertEquals(-1, result2)
-        assertEquals(category.defaultAmount, saveCategory.defaultAmount)
-        assertEquals(category.name, saveCategory.name)
+        assertEquals(category.defaultAmount, savedCategory.defaultAmount)
+        assertEquals(category.name, savedCategory.name)
     }
 }

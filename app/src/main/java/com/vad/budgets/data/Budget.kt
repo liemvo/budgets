@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "budgets", indices = [Index(value = ["startTime", "endTime"], unique = true)])
+@Entity(tableName = "budgets", indices = [Index(value = ["startTime", "endTime", "categoryId"], unique = true)])
 data class Budget(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
