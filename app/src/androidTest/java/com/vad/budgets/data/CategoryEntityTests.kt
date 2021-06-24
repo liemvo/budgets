@@ -6,7 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -44,7 +43,6 @@ class CategoryEntityTests {
         val savedCategory = categories.first()
         
         assertTrue(categories.size == 1)
-        assertNotNull(savedCategory.categoryId)
         assertEquals(category.name, savedCategory.name)
         assertEquals(category.defaultAmount, savedCategory.defaultAmount)
     }
@@ -58,7 +56,7 @@ class CategoryEntityTests {
         val savedCategory = categoryDao.getAll().first()
         val newCategory = savedCategory.copy(isActive = false)
         categoryDao.update(newCategory)
-        val updatedCategory = categoryDao.getCategoryById(savedCategory.categoryId)
+        val updatedCategory = categoryDao.getCategoryByName(savedCategory.name)
         
         assertEquals(newCategory, updatedCategory)
     }

@@ -17,12 +17,15 @@ interface BudgetDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(budget: Budget): Long
     
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertBudgets(vararg budget: Budget)
+    
     @Update
     fun update(budget: Budget): Int
     
     @Query("DELETE FROM budgets")
-    fun clearCategories()
+    fun clearBudgets()
     
-    @Query("SELECT * FROM budgets WHERE id = :id")
-    fun getBudgetById(id: Long): Budget
+    @Query("SELECT * FROM budgets WHERE startTime = :startTime and endTime = :endTime and name = :name")
+    fun getBudget(name: String, startTime: Long, endTime: Long): Budget
 }

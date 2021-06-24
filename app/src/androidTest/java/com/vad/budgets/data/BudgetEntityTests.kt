@@ -35,7 +35,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertNewBudget() {
-        val category = Category(categoryId = 40L, name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -57,7 +57,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertDuplicateCategoryAndPeriod_WontInsert() {
-        val category = Category(categoryId = 40L, name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -82,7 +82,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun updateBudget() {
-        val category = Category(categoryId = 40L, name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -102,8 +102,67 @@ class BudgetEntityTests {
         val newBudget = savedBudget.copy(amount = 300f)
         budgetDao.update(newBudget)
         
-        val updatedBudget = budgetDao.getBudgetById(savedBudget.id)
+        val updatedBudget = budgetDao.getBudget(savedBudget.category.name, savedBudget.startTime, savedBudget.endTime)
         assertEquals(newBudget.category, updatedBudget.category)
         assertEquals(newBudget.amount, updatedBudget.amount)
     }
+    
+    @Test
+    @Throws(IOException::class)
+    fun clearDatabase() {
+        insertBudgets()
+        
+        budgetDao.clearBudgets()
+        
+        assertTrue(budgetDao.getAll().isEmpty())
+    }
+    
+    @Test
+    @Throws(IOException::class)
+    fun insertAllBudgets() {
+        
+        insertBudgets()
+        
+        val allBudgets = budgetDao.getAll()
+        
+        assertEquals(3, allBudgets.size)
+    }
+    
+    @Test
+    @Throws(IOException::class)
+    fun getAllBudgetsInPeriods() {
+        insertBudgets()
+        
+        val budgets = budgetDao.getAllBudgetsInPeriod(40L, 500L)
+        
+        assertEquals(2, budgets.size)
+    }
+    
+    private fun insertBudgets() {
+        val category1 = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val budget1 = Budget(
+            amount = 500f,
+            startTime = 40L,
+            endTime = 500L,
+            category = category1
+        )
+    
+        val category2 = Category(name = "Award", defaultAmount = 500f, isActive = true)
+        val budget2 = Budget(
+            amount = 500f,
+            startTime = 40L,
+            endTime = 500L,
+            category = category2
+        )
+    
+        val budget3 = Budget(
+            amount = 500f,
+            startTime = 501L,
+            endTime = 900L,
+            category = category2
+        )
+    
+        budgetDao.insertBudgets(budget1, budget2, budget3)
+    }
+    
 }

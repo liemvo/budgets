@@ -8,7 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface CategoryDao {
-    @Query("SELECT * FROM categories ORDER BY categoryId DESC")
+    @Query("SELECT * FROM categories ORDER BY name DESC")
     fun getAll(): List<Category>
     
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -20,6 +20,6 @@ interface CategoryDao {
     @Query("DELETE FROM categories")
     fun clearCategories()
     
-    @Query("SELECT * FROM categories WHERE categoryId = :id")
-    fun getCategoryById(id: Long): Category
+    @Query("SELECT * FROM categories WHERE name = :name")
+    fun getCategoryByName(name: String): Category
 }

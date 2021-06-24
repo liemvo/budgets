@@ -1,13 +1,11 @@
 package com.vad.budgets.data
 
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "categories", indices = [Index(value = ["name"], unique = true)])
+@Entity(tableName = "categories")
 data class Category(
-    @PrimaryKey(autoGenerate = true)
-    var categoryId: Long = 0,
+    @PrimaryKey
     val name: String,
     val defaultAmount: Float,
     val isActive: Boolean
