@@ -35,7 +35,7 @@ class CategoryEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertNewCategory() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         categoryDao.insert(category)
         
         val categories = categoryDao.getAll()
@@ -50,7 +50,7 @@ class CategoryEntityTests {
     @Test
     @Throws(IOException::class)
     fun updateCategory() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         categoryDao.insert(category)
         
         val savedCategory = categoryDao.getAll().first()
@@ -64,7 +64,7 @@ class CategoryEntityTests {
     @Test
     @Throws(IOException::class)
     fun clearCategories() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         categoryDao.insert(category)
         
         val categories = categoryDao.getAll()
@@ -78,8 +78,8 @@ class CategoryEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertDuplicateCategoryName_ThenIgnore() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
-        val category2 = Category(name = "Rent", defaultAmount = 50f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category2 = Category(name = "Rent", defaultAmount = 50f, isActive = true, currency = currency)
         val result = categoryDao.insert(category)
         val result2 = categoryDao.insert(category2)
         
@@ -92,5 +92,9 @@ class CategoryEntityTests {
         assertEquals(-1, result2)
         assertEquals(category.defaultAmount, savedCategory.defaultAmount)
         assertEquals(category.name, savedCategory.name)
+    }
+    
+    companion object {
+        private val currency = Currency.NZD.value
     }
 }

@@ -35,7 +35,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertNewBudget() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -57,7 +57,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertDuplicateCategoryAndPeriod_WontInsert() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -82,7 +82,7 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun updateBudget() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -139,7 +139,7 @@ class BudgetEntityTests {
     }
     
     private fun insertBudgets() {
-        val category1 = Category(name = "Rent", defaultAmount = 450f, isActive = true)
+        val category1 = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget1 = Budget(
             amount = 500f,
             startTime = 40L,
@@ -147,7 +147,7 @@ class BudgetEntityTests {
             category = category1
         )
     
-        val category2 = Category(name = "Award", defaultAmount = 500f, isActive = true)
+        val category2 = Category(name = "Award", defaultAmount = 500f, isActive = true, currency = currency)
         val budget2 = Budget(
             amount = 500f,
             startTime = 40L,
@@ -165,4 +165,7 @@ class BudgetEntityTests {
         budgetDao.insertBudgets(budget1, budget2, budget3)
     }
     
+    companion object {
+        private val currency = Currency.NZD.value
+    }
 }

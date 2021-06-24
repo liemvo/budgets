@@ -8,5 +8,6 @@ data class Category(
     @PrimaryKey
     val name: String,
     val defaultAmount: Float,
+    val currency: String,
     val isActive: Boolean
 )

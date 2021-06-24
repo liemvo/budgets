@@ -1,30 +1,42 @@
 package com.vad.budgets.data
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "transactions")
-class Transaction(
-    val name: String,
-    val budgetId: Int,
+data class Transaction(
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+    val title: String,
+    val categoryName: String,
     val amount: Float,
-    @Embedded val currency: Currency,
-    @Embedded val transactionType: TransactionType,
+    val currency: String,
+    val transactionType: Int,
     val note: String? = null,
     val date: Long
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    override fun equals(other: Any?): Boolean {
+        val otherTransaction = other as? Transaction
+        if (otherTransaction != null) {
+            return title == otherTransaction.title
+                && categoryName == otherTransaction.categoryName
+                && amount == otherTransaction.amount
+                && currency == otherTransaction.currency
+                && transactionType == otherTransaction.transactionType
+                && note == otherTransaction.note
+                && date == otherTransaction.date
+        }
+        return false
+    }
 }
 
 
-enum class TransactionType(val type: Int) {
-    EXPENSE(1),
-    REVENUE(2)
+sealed class TransactionType(val type: Int) {
+    object EXPENSE: TransactionType(1)
+    object REVENUE: TransactionType(2)
 }
 
-enum class Currency(val currency: String) {
-    USD("USD"),
-    NZD("NZD")
+sealed class Currency(val value: String) {
+    object USD : Currency("USD")
+    object NZD : Currency("NZD")
 }
