@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.transactions
+package com.vad.budgets.ui.budget
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
 
-class TransactionsFragment : Fragment() {
+class BudgetsFragment : Fragment() {
     
-    private lateinit var transactionsViewModel: TransactionsViewModel
+    private lateinit var budgetsViewModel: BudgetsViewModel
     
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        transactionsViewModel =
-            ViewModelProvider(this).get(TransactionsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_transactions, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        transactionsViewModel.text.observe(viewLifecycleOwner, Observer {
+        budgetsViewModel =
+            ViewModelProvider(this).get(BudgetsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_budgets, container, false)
+        val textView: TextView = root.findViewById(R.id.text_notifications)
+        budgetsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

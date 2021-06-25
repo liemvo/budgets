@@ -1,7 +1,8 @@
-package com.vad.budgets.data
+package com.vad.budgets.data.budget
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import com.vad.budgets.data.category.Category
 
 @Entity(tableName = "budgets", primaryKeys = ["startTime", "endTime", "name"])
 data class Budget(

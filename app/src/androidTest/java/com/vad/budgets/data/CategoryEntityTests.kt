@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vad.budgets.data.category.Category
+import com.vad.budgets.data.category.CategoryDao
+import com.vad.budgets.data.transaction.Currency
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

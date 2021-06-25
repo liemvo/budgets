@@ -1,5 +1,8 @@
 package com.vad.budgets.data
 
+import com.vad.budgets.data.transaction.Currency
+import com.vad.budgets.data.transaction.TransactionType
+
 fun Int?.toTransactionType(): TransactionType? = this?.let {
     when(it) {
         TransactionType.EXPENSE.type -> TransactionType.EXPENSE

@@ -1,13 +1,13 @@
-package com.vad.budgets.ui.budgets
+package com.vad.budgets.ui.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class BudgetsViewModel : ViewModel() {
+class CategoriesViewModel : ViewModel() {
     
     private val _text = MutableLiveData<String>().apply {
-        value = "This is budgets history Fragment"
+        value = "This is categories Fragment"
     }
     val text: LiveData<String> = _text
 }

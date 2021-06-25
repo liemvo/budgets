@@ -1,4 +1,4 @@
-package com.vad.budgets.data
+package com.vad.budgets.data.category
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,8 +11,11 @@ interface CategoryDao {
     @Query("SELECT * FROM categories ORDER BY name DESC")
     fun getAll(): List<Category>
     
+    @Query("SELECT * FROM categories where isActive = 1 ORDER BY name DESC")
+    fun getAllActive(): List<Category>
+    
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(category: Category) : Long
+    fun insert(category: Category): Long
     
     @Update
     fun update(category: Category): Int

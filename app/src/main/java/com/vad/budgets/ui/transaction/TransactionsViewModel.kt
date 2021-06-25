@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.transactions
+package com.vad.budgets.ui.transaction
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

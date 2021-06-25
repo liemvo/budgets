@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vad.budgets.data.transaction.Currency
+import com.vad.budgets.data.transaction.Transaction
+import com.vad.budgets.data.transaction.TransactionDao
+import com.vad.budgets.data.transaction.TransactionType
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

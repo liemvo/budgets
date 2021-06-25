@@ -1,4 +1,4 @@
-package com.vad.budgets.data
+package com.vad.budgets.data.transaction
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -30,10 +30,9 @@ data class Transaction(
     }
 }
 
-
 sealed class TransactionType(val type: Int) {
-    object EXPENSE: TransactionType(1)
-    object REVENUE: TransactionType(2)
+    object EXPENSE : TransactionType(1)
+    object REVENUE : TransactionType(2)
 }
 
 sealed class Currency(val value: String) {

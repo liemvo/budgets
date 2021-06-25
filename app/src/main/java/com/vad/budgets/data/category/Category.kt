@@ -1,4 +1,4 @@
-package com.vad.budgets.data
+package com.vad.budgets.data.category
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

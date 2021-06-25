@@ -1,4 +1,4 @@
-package com.vad.budgets.data
+package com.vad.budgets.data.budget
 
 import androidx.room.Dao
 import androidx.room.Insert
