@@ -25,7 +25,7 @@ import java.util.concurrent.Executors
 @RunWith(AndroidJUnit4::class)
 class CategoryEntityTests {
     private lateinit var categoryDao: CategoryDao
-    private lateinit var db: AppDatabase
+    private lateinit var db: BudgetDatabase
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
     
@@ -33,7 +33,7 @@ class CategoryEntityTests {
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabase::class.java
+            context, BudgetDatabase::class.java
         )
             .setTransactionExecutor(Executors.newSingleThreadExecutor())
             .build()

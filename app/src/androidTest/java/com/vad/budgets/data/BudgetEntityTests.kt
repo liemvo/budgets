@@ -19,13 +19,13 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class BudgetEntityTests {
     private lateinit var budgetDao: BudgetDao
-    private lateinit var db: AppDatabase
+    private lateinit var db: BudgetDatabase
     
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, AppDatabase::class.java
+            context, BudgetDatabase::class.java
         ).build()
         budgetDao = db.budgetDao()
     }
