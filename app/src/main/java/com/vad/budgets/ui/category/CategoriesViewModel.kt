@@ -1,13 +1,12 @@
 package com.vad.budgets.ui.category
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vad.budgets.data.category.CategoryRepository
+import com.vad.budgets.di.scope.CategoryScope
+import javax.inject.Inject
 
-class CategoriesViewModel : ViewModel() {
-    
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is categories Fragment"
-    }
-    val text: LiveData<String> = _text
+
+@CategoryScope
+class CategoriesViewModel @Inject constructor(categoryRepository: CategoryRepository): ViewModel() {
+    val categories = categoryRepository.getAllCategory()
 }

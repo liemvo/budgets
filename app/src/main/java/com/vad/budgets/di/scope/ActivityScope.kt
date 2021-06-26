@@ -1,4 +1,4 @@
-package com.vad.budgets.di
+package com.vad.budgets.di.scope
 
 import javax.inject.Scope
 
