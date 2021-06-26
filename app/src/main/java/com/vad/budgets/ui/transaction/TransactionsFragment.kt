@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
+import javax.inject.Inject
 
-class TransactionsFragment : Fragment() {
+class TransactionsFragment @Inject constructor(): Fragment() {
     
     private lateinit var transactionsViewModel: TransactionsViewModel
     

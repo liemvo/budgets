@@ -1,9 +1,9 @@
 package com.vad.budgets.data.category
 
 import androidx.lifecycle.LiveData
-import com.vad.budgets.di.scope.CategoryScope
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface CategoryRepository {
     fun getAllCategory(): LiveData<List<Category>>
@@ -11,7 +11,7 @@ interface CategoryRepository {
     suspend fun updateCategory(category: Category): Int
 }
 
-@CategoryScope
+@Singleton
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao
 ) : CategoryRepository {
