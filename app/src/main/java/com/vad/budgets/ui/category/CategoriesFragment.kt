@@ -7,18 +7,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentCategoriesBinding
-import dagger.android.support.DaggerFragment
+import com.vad.budgets.ui.actionbar.BaseFragment
 import javax.inject.Inject
 
 class CategoriesFragment @Inject constructor(
     private val categoriesViewModel: CategoriesViewModel
-) : DaggerFragment(), CategoryInterface {
-    
+) : BaseFragment(), CategoryInterface {
     
     private lateinit var adapter: CategoryAdapter
     
@@ -43,6 +41,7 @@ class CategoriesFragment @Inject constructor(
         DividerItemDecoration(_context, LinearLayoutManager.VERTICAL).run {
             binding.categories.addItemDecoration(this)
         }
+        actionBarController?.setTitle(R.string.title_category)
         
         setHasOptionsMenu(true)
         
@@ -61,18 +60,23 @@ class CategoriesFragment @Inject constructor(
     }
     
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.action_add) {
-            navigateToCategoryDetail()
+        if (item.itemId == R.id.action_add) {
+            addNewCategory()
         }
         return super.onOptionsItemSelected(item)
     }
     
     override fun onItemClick(categoryName: String?) {
-        navigateToCategoryDetail(categoryName)
+        categoryName?.let {
+            editCategory(it)
+        }
     }
     
-    private fun navigateToCategoryDetail(name: String? = null) {
-        val action = CategoriesFragmentDirections.openDetailCategory(name)
-        findNavController().navigate(action)
+    private fun editCategory(name: String) {
+        CategoriesFragmentDirections.openDetailCategory(name).navigateSafe()
+    }
+    
+    private fun addNewCategory() {
+        CategoriesFragmentDirections.addDetailCategory().navigateSafe()
     }
 }

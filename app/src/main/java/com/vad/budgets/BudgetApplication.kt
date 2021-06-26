@@ -1,6 +1,5 @@
 package com.vad.budgets
 
-import android.app.Activity
 import android.app.Application
 import com.vad.budgets.di.AppModule
 import com.vad.budgets.di.DaggerAppComponent
@@ -9,7 +8,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class BudgetApplication: Application(), HasAndroidInjector {
+class BudgetApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
     

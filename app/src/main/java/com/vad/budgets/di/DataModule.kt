@@ -27,7 +27,8 @@ class DataModule {
     
     @Provides
     @Singleton
-    fun provideCategoryDao(budgetDatabase: BudgetDatabase): CategoryDao = budgetDatabase.categoryDao()
+    fun provideCategoryDao(budgetDatabase: BudgetDatabase): CategoryDao =
+        budgetDatabase.categoryDao()
     
     @Provides
     @Singleton
@@ -35,7 +36,8 @@ class DataModule {
     
     @Provides
     @Singleton
-    fun provideTransactionDao(budgetDatabase: BudgetDatabase): TransactionDao = budgetDatabase.transactionDao()
+    fun provideTransactionDao(budgetDatabase: BudgetDatabase): TransactionDao =
+        budgetDatabase.transactionDao()
     
     @Provides
     @Singleton

@@ -2,6 +2,8 @@
     <string name="app_name">Budgets</string>
     <string name="title_transactions">Transactions</string>
     <string name="title_category">Category</string>
+    <string name="title_add_category">Add category</string>
+    <string name="title_edit_category">Edit category</string>
     <string name="title_budgets">Budgets</string>
     <string name="no_categories_message">You have no categories!</string>
     <string name="add_category">Add category</string>

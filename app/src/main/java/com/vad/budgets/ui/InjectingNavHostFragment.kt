@@ -6,7 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class InjectingNavHostFragment: NavHostFragment() {
+class InjectingNavHostFragment : NavHostFragment() {
     
     @Inject
     lateinit var daggerFragmentInjectionFactory: InjectingFragmentFactory

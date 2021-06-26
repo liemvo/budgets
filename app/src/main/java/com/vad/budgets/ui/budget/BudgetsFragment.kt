@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
+import com.vad.budgets.ui.actionbar.BaseFragment
 import javax.inject.Inject
 
-class BudgetsFragment @Inject constructor(): Fragment() {
+class BudgetsFragment @Inject constructor() : BaseFragment() {
     
     private lateinit var budgetsViewModel: BudgetsViewModel
     
@@ -28,5 +28,10 @@ class BudgetsFragment @Inject constructor(): Fragment() {
             textView.text = it
         })
         return root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        actionBarController?.setTitle(R.string.title_budgets)
     }
 }

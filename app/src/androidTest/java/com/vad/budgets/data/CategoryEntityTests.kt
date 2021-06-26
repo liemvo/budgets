@@ -26,6 +26,7 @@ import java.util.concurrent.Executors
 class CategoryEntityTests {
     private lateinit var categoryDao: CategoryDao
     private lateinit var db: BudgetDatabase
+    
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
     
@@ -114,9 +115,9 @@ class CategoryEntityTests {
             assertEquals(1, result)
             assertEquals(-1, result2)
         }
-    
+        
         val categories = categoryDao.getAll().getOrAwaitValue()
-    
+        
         assertTrue(categories.size == 1)
         val savedCategory = categories.first()
         

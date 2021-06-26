@@ -2,8 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data >
+
+    <data>
+
         <import type="com.vad.budgets.ui.category.CategoryExtensionsKt" />
+
         <variable
             name="category"
             type="com.vad.budgets.data.category.Category" />

@@ -39,7 +39,8 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertNewBudget() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category =
+            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -49,7 +50,7 @@ class BudgetEntityTests {
         val result = budgetDao.insert(budget)
         val budgets = budgetDao.getAll()
         val savedBudget = budgets.first()
-    
+        
         assertEquals(1, result)
         assertTrue(budgets.size == 1)
         assertEquals(category, savedBudget.category)
@@ -61,7 +62,8 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun insertDuplicateCategoryAndPeriod_WontInsert() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category =
+            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -77,7 +79,7 @@ class BudgetEntityTests {
         
         assertTrue(budgets.size == 1)
         assertEquals(category, savedBudget.category)
-    
+        
         assertEquals(500f, savedBudget.amount)
         assertEquals(budget.startTime, savedBudget.startTime)
         assertEquals(budget.endTime, savedBudget.endTime)
@@ -86,7 +88,8 @@ class BudgetEntityTests {
     @Test
     @Throws(IOException::class)
     fun updateBudget() {
-        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category =
+            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget = Budget(
             amount = 500f,
             startTime = 40L,
@@ -102,11 +105,15 @@ class BudgetEntityTests {
         assertTrue(budgets.size == 1)
         assertEquals(category, savedBudget.category)
         assertEquals(500f, savedBudget.amount)
-    
+        
         val newBudget = savedBudget.copy(amount = 300f)
         budgetDao.update(newBudget)
         
-        val updatedBudget = budgetDao.getBudget(savedBudget.category.name, savedBudget.startTime, savedBudget.endTime)
+        val updatedBudget = budgetDao.getBudget(
+            savedBudget.category.name,
+            savedBudget.startTime,
+            savedBudget.endTime
+        )
         assertEquals(newBudget.category, updatedBudget.category)
         assertEquals(newBudget.amount, updatedBudget.amount)
     }
@@ -143,29 +150,31 @@ class BudgetEntityTests {
     }
     
     private fun insertBudgets() {
-        val category1 = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category1 =
+            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         val budget1 = Budget(
             amount = 500f,
             startTime = 40L,
             endTime = 500L,
             category = category1
         )
-    
-        val category2 = Category(name = "Award", defaultAmount = 500f, isActive = true, currency = currency)
+        
+        val category2 =
+            Category(name = "Award", defaultAmount = 500f, isActive = true, currency = currency)
         val budget2 = Budget(
             amount = 500f,
             startTime = 40L,
             endTime = 500L,
             category = category2
         )
-    
+        
         val budget3 = Budget(
             amount = 500f,
             startTime = 501L,
             endTime = 900L,
             category = category2
         )
-    
+        
         budgetDao.insertBudgets(budget1, budget2, budget3)
     }
     

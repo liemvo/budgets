@@ -18,15 +18,21 @@
         tools:layout="@layout/fragment_categories">
         <action
             android:id="@+id/open_detail_category"
-            app:destination="@id/categoryFragment"
+            app:destination="@id/editCategoryFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true">
             <argument
                 android:name="categoryName"
-                app:nullable="true"
-                app:argType="string" />
+                app:argType="string"
+                app:nullable="false" />
         </action>
+        <action
+            android:id="@+id/add_detail_category"
+            app:destination="@id/categoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"></action>
     </fragment>
 
     <fragment
@@ -37,6 +43,11 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.vad.budgets.ui.category.details.CategoryFragment"
-        android:label="@string/title_category"
+        android:label="@string/title_add_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.vad.budgets.ui.category.details.CategoryFragment"
+        android:label="@string/title_edit_category"
         tools:layout="@layout/fragment_category" />
 </navigation>

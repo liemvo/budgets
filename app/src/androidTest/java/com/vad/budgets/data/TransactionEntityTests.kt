@@ -50,7 +50,7 @@ class TransactionEntityTests {
         
         transactionDao.insert(expense)
         assertEquals(1, transactionDao.getAll().size)
-    
+        
         val revenue = Transaction(
             title = "Sale",
             categoryName = "Business",
@@ -84,7 +84,7 @@ class TransactionEntityTests {
         transactionDao.update(revenue)
         
         val updatedTransaction = transactionDao.getTransactionsById(revenue.id)
-    
+        
         assertEquals(1, transactionDao.getAll().size)
         
         assertEquals(revenue, updatedTransaction)
@@ -117,7 +117,7 @@ class TransactionEntityTests {
         assertEquals(2, transactionDao.getAll().size)
         
         transactionDao.clearTransactions()
-    
+        
         assertTrue(transactionDao.getAll().isEmpty())
     }
     
@@ -141,7 +141,7 @@ class TransactionEntityTests {
             transactionType = revenue,
             date = 60L
         )
-    
+        
         val expense1 = Transaction(
             title = "Lunch",
             categoryName = "Rent",
