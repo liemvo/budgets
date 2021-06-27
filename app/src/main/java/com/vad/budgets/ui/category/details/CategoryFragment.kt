@@ -33,11 +33,20 @@ class CategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            actionBarController?.setTitle(R.string.title_add_category)
+            val name = CategoryFragmentArgs.fromBundle(it).categoryName
+            val titleId = if (name == null) {
+                viewModel.resetFields()
+                R.string.title_add_category
+            } else {
+                viewModel.loadCategory(name)
+                R.string.title_edit_category
+            }
+            actionBarController?.setTitle(titleId)
         }
         setHasOptionsMenu(true)
         viewModel.isFinished.observe(viewLifecycleOwner) {
             if (it) {
+                viewModel.clearSaveOrUpdateState()
                 actionBarController?.onBackPressed()
             }
         }
@@ -47,6 +56,7 @@ class CategoryFragment : BaseFragment() {
         super.onResume()
         actionBarController?.updateNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         actionBarController?.onNavigationIconClicked {
+            viewModel.clearSaveOrUpdateState()
             actionBarController?.onBackPressed()
         }
     }

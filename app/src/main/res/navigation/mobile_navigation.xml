@@ -21,13 +21,7 @@
             app:destination="@id/categoryFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true">
-            <argument
-                android:name="categoryName"
-                app:argType="string"
-                android:defaultValue="@null"
-                app:nullable="true" />
-        </action>
+            app:launchSingleTop="false" />
     </fragment>
 
     <fragment
@@ -39,5 +33,11 @@
         android:id="@+id/categoryFragment"
         android:name="com.vad.budgets.ui.category.details.CategoryFragment"
         android:label="@string/title_add_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category">
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
 </navigation>

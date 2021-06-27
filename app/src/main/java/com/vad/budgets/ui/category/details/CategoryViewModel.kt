@@ -22,9 +22,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CategoryViewModel @Inject constructor(private val app: BudgetApplication, private val categoryRepository: CategoryRepository) : AndroidViewModel(app) {
-    val editCategory: LiveData<Category> get() = category
-    private val category = MutableLiveData<Category>()
+class CategoryViewModel @Inject constructor(
+    private val app: BudgetApplication,
+    private val categoryRepository: CategoryRepository
+) : AndroidViewModel(app) {
+    val editCategory: LiveData<Category?> get() = category
+    private val category = MutableLiveData<Category?>()
     val nameInput = TextFieldInput(app.getString(R.string.category_name))
     val defaultValueInput = TextFieldInput(app.getString(R.string.category_default_value))
     val currencyDropdownModel = DropdownModel<Currency>(app.getString(R.string.currency))
@@ -37,38 +40,39 @@ class CategoryViewModel @Inject constructor(private val app: BudgetApplication, 
     val isFinished: LiveData<Boolean> get() = finish
     
     private val allCategory = categoryRepository.getAllCategory()
+    
     init {
         currencyDropdownModel.update(StaticData.currencies, Currency.NZD)
-        isActive.postValue(true)
         
-        nameInput.text.addSource(category){
-            nameInput.text.postValue(it.name)
-        }
-        defaultValueInput.text.addSource(category) {
-            defaultValueInput.text.postValue(Utility.numberFormat.format(it.defaultAmount))
-        }
-        currencyDropdownModel.selectedOption.addSource(category) { category ->
-            category.currency.toCurrency()?.let {
-                currencyDropdownModel.update(StaticData.currencies, it)
+        nameInput.text.addSource(category) { category ->
+            category?.let {
+                nameInput.text.postValue(it.name)
+                defaultValueInput.text.postValue(Utility.numberFormat.format(it.defaultAmount))
+                category.currency.toCurrency()?.let {
+                    currencyDropdownModel.update(StaticData.currencies, it)
+                }
+                isActive.postValue(it.isActive)
             }
-        }
-        isActive.addSource(category) {
-            isActive.postValue(it.isActive)
         }
     }
     
-    suspend fun loadCategory(name: String) {
+    fun loadCategory(name: String) {
         loading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 category.postValue(categoryRepository.getCategory(name))
-            } catch (exception: Exception){
+            } catch (exception: Exception) {
                 Timber.e(exception)
             }
             
             loading.postValue(false)
         }
     }
+    
+    fun clearSaveOrUpdateState() {
+        finish.postValue(false)
+    }
+    
     
     fun saveOrUpdateCategory() {
         val name = nameInput.text.value
@@ -79,12 +83,13 @@ class CategoryViewModel @Inject constructor(private val app: BudgetApplication, 
             return
         }
         
-        val isExistCategoryName = categories?.firstOrNull { it.name.equals(name, ignoreCase = true) } != null
+        val isExistCategoryName =
+            categories?.firstOrNull { it.name.equals(name, ignoreCase = true) } != null
         if (category == null && isExistCategoryName) {
             nameInput.showError(app.getString(R.string.category_name_duplicated_error))
             return
         }
-    
+        
         loading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -113,5 +118,13 @@ class CategoryViewModel @Inject constructor(private val app: BudgetApplication, 
             loading.postValue(false)
             finish.postValue(true)
         }
+    }
+    
+    fun resetFields() {
+        category.postValue(null)
+        nameInput.text.postValue("")
+        defaultValueInput.text.postValue("")
+        currencyDropdownModel.selectedOption.postValue(Currency.NZD)
+        isActive.postValue(true)
     }
 }
