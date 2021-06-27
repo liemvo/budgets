@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Budgets</string>
     <string name="title_transactions">Transactions</string>
-    <string name="title_category">Category</string>
+    <string name="title_categories">Categories</string>
     <string name="title_add_category">Add category</string>
     <string name="title_edit_category">Edit category</string>
     <string name="title_budgets">Budgets</string>
     <string name="no_categories_message">You have no categories!</string>
     <string name="add_category">Add category</string>
+    <string name="category_name">Category name</string>
+
+    <string name="currency">Currency</string>
+    <string name="category_default_value">Default value</string>
+    <string name="category_default_value_hint">34.0</string>
+    <string name="active">Active</string>
 </resources>

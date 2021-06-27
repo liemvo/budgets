@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.vad.budgets.data.transaction.StaticData" />
+        <import type="com.vad.budgets.ui.binding.CurrencyBindingAdapter" />
         <variable
             name="viewModel"
             type="com.vad.budgets.ui.category.details.CategoryViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="@dimen/large_margin"
         tools:context=".ui.category.details.CategoryFragment">
 
-    </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/category_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/category_name"
+            app:errorText="@{viewModel.nameInput.error}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/category_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="@{!viewModel.nameInput.disabled}"
+                android:inputType="text"
+                android:text="@={viewModel.nameInput.text}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/category_default_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:errorText="@{viewModel.defaultValueInput.error}"
+            app:layout_constraintEnd_toStartOf="@id/currency_spinner"
+            app:layout_constraintStart_toStartOf="@id/category_name_input"
+            app:layout_constraintTop_toBottomOf="@id/category_name_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/category_default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="@{!viewModel.nameInput.disabled}"
+                android:hint="@string/category_default_value"
+                android:inputType="number"
+                android:text="@={viewModel.defaultValueInput.text}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/currency_spinner"
+            android:layout_width="@dimen/currency_spinner_width"
+            android:layout_height="wrap_content"
+            app:items="@{viewModel.currencyDropdownModel.options}"
+            android:selectedItemPosition="@={CurrencyBindingAdapter.toSelectedCurrencyIndex(viewModel.currencyDropdownModel.options, viewModel.currencyDropdownModel.selectedOption)}"
+            app:layout_constraintBottom_toBottomOf="@id/category_default_input"
+            app:layout_constraintEnd_toEndOf="@id/category_name_input"
+            app:layout_constraintTop_toBottomOf="@id/category_name_input" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/active"
+            app:layout_constraintEnd_toEndOf="@id/category_name_input"
+            app:layout_constraintStart_toStartOf="@id/category_name_input"
+            app:layout_constraintTop_toBottomOf="@id/category_default_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

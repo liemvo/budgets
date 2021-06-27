@@ -41,7 +41,7 @@ class CategoriesFragment @Inject constructor(
         DividerItemDecoration(_context, LinearLayoutManager.VERTICAL).run {
             binding.categories.addItemDecoration(this)
         }
-        actionBarController?.setTitle(R.string.title_category)
+        actionBarController?.setTitle(R.string.title_categories)
         
         setHasOptionsMenu(true)
         
@@ -61,22 +61,18 @@ class CategoriesFragment @Inject constructor(
     
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_add) {
-            addNewCategory()
+            navigateToCategory()
         }
         return super.onOptionsItemSelected(item)
     }
     
     override fun onItemClick(categoryName: String?) {
         categoryName?.let {
-            editCategory(it)
+            navigateToCategory(it)
         }
     }
     
-    private fun editCategory(name: String) {
+    private fun navigateToCategory(name: String? = null) {
         CategoriesFragmentDirections.openDetailCategory(name).navigateSafe()
-    }
-    
-    private fun addNewCategory() {
-        CategoriesFragmentDirections.addDetailCategory().navigateSafe()
     }
 }

@@ -1,6 +1,7 @@
 package com.vad.budgets
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, ActionBarControlle
     
     private lateinit var binding: ActivityMainBinding
     
-    private val isReady get() = ::binding.isInitialized
+    private val isActivityReady get() = ::binding.isInitialized
     
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -57,17 +58,9 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, ActionBarControlle
         }
     }
     
-    override fun setTitle(title: String?) {
-        if (isReady) {
-            title?.let {
-                binding.title = title
-            }
-        }
-    }
-    
-    override fun setTitle(titleId: Int?) {
-        if (isReady) {
-            titleId?.let {
+    override fun setTitle(@StringRes titleId: Int?) {
+        titleId?.let {
+            if (isActivityReady) {
                 binding.title = getString(it)
             }
         }

@@ -29,12 +29,14 @@
             tools:text="Rent" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/large_margin"
+            android:text="@string/active"
+            android:layout_margin="@dimen/large_margin"
             android:clickable="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/category_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/default_value"
             app:layout_constraintTop_toBottomOf="@id/category_name"
             tools:checked="@{category.active}"
             tools:text="Active" />

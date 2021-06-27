@@ -75,6 +75,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
+    androidTestImplementation("androidx.navigation:navigation-testing:$navigation_version")
     androidTestImplementation "org.mockito:mockito-android:$mockito_android_version"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     androidTestImplementation "androidx.arch.core:core-testing:$android_core_testing_version"

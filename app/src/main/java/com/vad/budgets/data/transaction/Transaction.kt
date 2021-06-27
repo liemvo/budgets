@@ -39,3 +39,7 @@ sealed class Currency(val value: String) {
     object USD : Currency("USD")
     object NZD : Currency("NZD")
 }
+
+object StaticData {
+    val currencies = listOf(Currency.NZD, Currency.USD)
+}
