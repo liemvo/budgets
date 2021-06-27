@@ -6,11 +6,15 @@
     <string name="title_edit_category">Edit category</string>
     <string name="title_budgets">Budgets</string>
     <string name="no_categories_message">You have no categories!</string>
+
     <string name="add_category">Add category</string>
+    <string name="action_save">save</string>
     <string name="category_name">Category name</string>
 
     <string name="currency">Currency</string>
     <string name="category_default_value">Default value</string>
     <string name="category_default_value_hint">34.0</string>
-    <string name="active">Active</string>
+    <string name="category_active">Active</string>
+    <string name="category_name_error">Name is invalid</string>
+    <string name="category_name_duplicated_error">Name is duplicated</string>
 </resources>

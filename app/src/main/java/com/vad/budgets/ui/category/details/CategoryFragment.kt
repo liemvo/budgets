@@ -2,11 +2,12 @@ package com.vad.budgets.ui.category.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
-import com.vad.budgets.databinding.FragmentCategoriesBinding
 import com.vad.budgets.databinding.FragmentCategoryBinding
 import com.vad.budgets.ui.actionbar.BaseFragment
 import javax.inject.Inject
@@ -32,9 +33,14 @@ class CategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-        
+            actionBarController?.setTitle(R.string.title_add_category)
         }
-        actionBarController?.setTitle(R.string.title_add_category)
+        setHasOptionsMenu(true)
+        viewModel.isFinished.observe(viewLifecycleOwner) {
+            if (it) {
+                actionBarController?.onBackPressed()
+            }
+        }
     }
     
     override fun onResume() {
@@ -43,5 +49,17 @@ class CategoryFragment : BaseFragment() {
         actionBarController?.onNavigationIconClicked {
             actionBarController?.onBackPressed()
         }
+    }
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_save, menu)
+    }
+    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_save) {
+            viewModel.saveOrUpdateCategory()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

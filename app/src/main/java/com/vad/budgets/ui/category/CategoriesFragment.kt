@@ -18,7 +18,9 @@ class CategoriesFragment @Inject constructor(
     private val categoriesViewModel: CategoriesViewModel
 ) : BaseFragment(), CategoryInterface {
     
-    private lateinit var adapter: CategoryAdapter
+    private val adapter by lazy {
+        CategoryAdapter(this)
+    }
     
     private lateinit var binding: FragmentCategoriesBinding
     
@@ -45,9 +47,7 @@ class CategoriesFragment @Inject constructor(
         
         setHasOptionsMenu(true)
         
-        binding.categories.adapter = CategoryAdapter(this).also {
-            adapter = it
-        }
+        binding.categories.adapter = adapter
         
         categoriesViewModel.categories.observe(viewLifecycleOwner, {
             adapter.updateList(it)

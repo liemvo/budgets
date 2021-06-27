@@ -21,4 +21,3 @@ interface InputInterface {
     fun clearError()
     fun getError(): LiveData<String>
 }
-

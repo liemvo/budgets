@@ -6,6 +6,7 @@ import com.vad.budgets.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 class BudgetApplication : Application(), HasAndroidInjector {
@@ -21,6 +22,8 @@ class BudgetApplication : Application(), HasAndroidInjector {
             .appModule(AppModule(this))
             .build()
             .inject(this)
-        
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

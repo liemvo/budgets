@@ -7,7 +7,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-class CategoriesViewModel @Inject constructor(categoryRepository: CategoryRepository) :
-    ViewModel() {
+class CategoriesViewModel @Inject constructor(
+    categoryRepository: CategoryRepository
+) : ViewModel() {
     val categories = categoryRepository.getAllCategory()
 }

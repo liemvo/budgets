@@ -1,11 +1,12 @@
 package com.vad.budgets.ui.input
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 
 class DropdownModel<T>(override val title: String) : InputInterface {
     val options = MutableLiveData<List<T>>()
-    val selectedOption = MutableLiveData<T>()
+    val selectedOption = MediatorLiveData<T>()
     
     private val error = MutableLiveData<String>()
     
@@ -13,7 +14,6 @@ class DropdownModel<T>(override val title: String) : InputInterface {
         this.options.postValue(options)
         this.selectedOption.postValue(selectedOption)
     }
-    
     
     override fun showError(error: String) = this.error.postValue(error)
     override fun clearError() = error.postValue("")
