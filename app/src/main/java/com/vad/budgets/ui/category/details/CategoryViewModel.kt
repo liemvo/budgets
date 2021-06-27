@@ -32,7 +32,8 @@ class CategoryViewModel @Inject constructor(
     val defaultValueInput = TextFieldInput(app.getString(R.string.category_default_value))
     val currencyDropdownModel = DropdownModel<Currency>(app.getString(R.string.currency))
     val isActive = MediatorLiveData<Boolean>()
-    
+
+    // TODO need to refactor with state
     private val loading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = loading
     

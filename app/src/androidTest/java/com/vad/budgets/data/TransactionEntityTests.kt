@@ -1,6 +1,7 @@
 package com.vad.budgets.data
 
 import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -8,6 +9,7 @@ import com.vad.budgets.data.transaction.Currency
 import com.vad.budgets.data.transaction.Transaction
 import com.vad.budgets.data.transaction.TransactionDao
 import com.vad.budgets.data.transaction.TransactionType
+import com.vad.budgets.util.getOrAwaitValue
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -15,11 +17,18 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Rule
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class TransactionEntityTests {
     private lateinit var transactionDao: TransactionDao
     private lateinit var db: BudgetDatabase
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
     
     @Before
     fun createDb() {
@@ -47,9 +56,13 @@ class TransactionEntityTests {
             transactionType = expense,
             date = 40L
         )
-        
-        transactionDao.insert(expense)
-        assertEquals(1, transactionDao.getAll().size)
+
+        runBlockingTest {
+            transactionDao.insert(expense)
+        }
+
+        var transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(1, transactions.size)
         
         val revenue = Transaction(
             title = "Sale",
@@ -59,8 +72,13 @@ class TransactionEntityTests {
             transactionType = revenue,
             date = 60L
         )
-        transactionDao.insert(revenue)
-        assertEquals(2, transactionDao.getAll().size)
+
+        runBlockingTest {
+            transactionDao.insert(revenue)
+        }
+
+        transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(2, transactions.size)
     }
     
     @Test
@@ -74,18 +92,21 @@ class TransactionEntityTests {
             transactionType = expense,
             date = 40L
         )
-        
-        transactionDao.insert(expense)
-        
-        val transactions = transactionDao.getAll()
+
+        runBlockingTest {
+            transactionDao.insert(expense)
+        }
+
+        var transactions = transactionDao.getAll().getOrAwaitValue()
         assertEquals(1, transactions.size)
         
         val revenue = transactions.first().copy(transactionType = revenue)
         transactionDao.update(revenue)
         
         val updatedTransaction = transactionDao.getTransactionsById(revenue.id)
-        
-        assertEquals(1, transactionDao.getAll().size)
+
+        transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(1, transactions.size)
         
         assertEquals(revenue, updatedTransaction)
     }
@@ -101,9 +122,11 @@ class TransactionEntityTests {
             transactionType = expense,
             date = 40L
         )
-        
-        transactionDao.insert(expense)
-        assertEquals(1, transactionDao.getAll().size)
+        runBlockingTest {
+            transactionDao.insert(expense)
+        }
+        var transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(1, transactions.size)
         
         val revenue = Transaction(
             title = "Sale",
@@ -113,12 +136,16 @@ class TransactionEntityTests {
             transactionType = revenue,
             date = 60L
         )
-        transactionDao.insert(revenue)
-        assertEquals(2, transactionDao.getAll().size)
+        runBlockingTest {
+            transactionDao.insert(revenue)
+        }
+        transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(2, transactions.size)
         
         transactionDao.clearTransactions()
-        
-        assertTrue(transactionDao.getAll().isEmpty())
+
+        transactions = transactionDao.getAll().getOrAwaitValue()
+        assertTrue(transactions.isEmpty())
     }
     
     @Test
@@ -150,10 +177,11 @@ class TransactionEntityTests {
             transactionType = TransactionEntityTests.expense,
             date = 80L
         )
-        
-        transactionDao.insert(expense, revenue, expense1)
-        
-        val transactions = transactionDao.getTransactionsByPeriod(40L, 70L)
+        runBlockingTest {
+            transactionDao.insert(expense, revenue, expense1)
+        }
+
+        val transactions = transactionDao.getTransactionsByPeriod(40L, 70L).getOrAwaitValue()
         assertEquals(2, transactions.size)
         assertEquals(revenue, transactions.first())
         assertEquals(expense, transactions.last())
