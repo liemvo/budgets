@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
-
+// TODO Need add test in the future
 @ExperimentalCoroutinesApi
 class CategoryViewModelTest : TestCase() {
     @get:Rule

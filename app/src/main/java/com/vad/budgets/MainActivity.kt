@@ -68,11 +68,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, ActionBarControlle
     
     override fun onNavigationIconClicked(callback: () -> Unit) {
         binding.toolBar.setNavigationOnClickListener {
-            if (callback != {}) {
-                callback()
-            } else {
-                onBackPressed()
-            }
+            onBackPressed()
         }
     }
 }
