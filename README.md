@@ -7,7 +7,7 @@
 
 Here is some techniques are using:
 
-## Android Jectpack
+## Android Jetpack
 ### Room database + Test
 ### Data binding one and two-way (textfield, switch, spin)
 ### Android life cycle
