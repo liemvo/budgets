@@ -8,27 +8,24 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
+import com.vad.budgets.databinding.FragmentTransactionsBinding
 import com.vad.budgets.ui.actionbar.BaseFragment
 import javax.inject.Inject
 
-class TransactionsFragment @Inject constructor() : BaseFragment() {
+class TransactionsFragment @Inject constructor(
+    private val transactionsViewModel: TransactionsViewModel
+) : BaseFragment() {
     
-    private lateinit var transactionsViewModel: TransactionsViewModel
+    private lateinit var binding: FragmentTransactionsBinding
     
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        transactionsViewModel =
-            ViewModelProvider(this).get(TransactionsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_transactions, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        transactionsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
-    }
+    ): View =  FragmentTransactionsBinding.inflate(inflater, container, false).apply {
+        lifecycleOwner = viewLifecycleOwner
+        viewModel = transactionsViewModel
+    }.root
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
