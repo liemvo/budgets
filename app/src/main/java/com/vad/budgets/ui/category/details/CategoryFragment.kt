@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentCategoryBinding
-import com.vad.budgets.ui.actionbar.BaseFragment
+import com.vad.budgets.ui.common.actionbar.BaseFragment
 import javax.inject.Inject
 
 class CategoryFragment : BaseFragment() {

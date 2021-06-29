@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.actionbar
+package com.vad.budgets.ui.common.actionbar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

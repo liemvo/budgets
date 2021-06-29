@@ -1,8 +1,8 @@
-package com.vad.budgets.ui.actionbar
+package com.vad.budgets.ui.common.actionbar
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.vad.budgets.ui.navigation.NavigationFragment
+import com.vad.budgets.ui.common.navigation.NavigationFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -10,7 +10,10 @@ import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 open class BaseFragment : Fragment(), NavigationFragment, HasAndroidInjector {
-    
+    protected val nonNullContext by lazy {
+        requireContext()
+    }
+
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
     val actionBarController by lazy {

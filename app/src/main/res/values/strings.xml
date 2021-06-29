@@ -15,4 +15,6 @@
     <string name="category_active">Active</string>
     <string name="category_name_error">Name is invalid</string>
     <string name="category_name_duplicated_error">Name is duplicated</string>
+
+    <string name="no_transactions_message">You have no transactions</string>
 </resources>

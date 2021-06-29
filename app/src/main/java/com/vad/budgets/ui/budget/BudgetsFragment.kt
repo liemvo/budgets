@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vad.budgets.R
-import com.vad.budgets.ui.actionbar.BaseFragment
+import com.vad.budgets.ui.common.actionbar.BaseFragment
 import javax.inject.Inject
 
 class BudgetsFragment @Inject constructor() : BaseFragment() {

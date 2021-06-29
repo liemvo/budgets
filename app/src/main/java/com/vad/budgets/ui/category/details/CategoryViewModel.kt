@@ -12,8 +12,8 @@ import com.vad.budgets.data.category.CategoryRepository
 import com.vad.budgets.data.toCurrency
 import com.vad.budgets.data.transaction.Currency
 import com.vad.budgets.data.transaction.StaticData
-import com.vad.budgets.ui.input.DropdownModel
-import com.vad.budgets.ui.input.TextFieldInput
+import com.vad.budgets.ui.common.input.DropdownModel
+import com.vad.budgets.ui.common.input.TextFieldInput
 import com.vad.budgets.util.Utility
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,6 +1,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="large_margin">16dp</dimen>
+    <dimen name="medium_margin">8dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
     <dimen name="size_1dp">1dp</dimen>
     <dimen name="currency_spinner_width">120dp</dimen>
 </resources>

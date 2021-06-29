@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.binding
+package com.vad.budgets.ui.common.binding
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -11,22 +11,19 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentCategoriesBinding
-import com.vad.budgets.ui.actionbar.BaseFragment
+import com.vad.budgets.ui.common.ItemClickListener
+import com.vad.budgets.ui.common.actionbar.BaseFragment
 import javax.inject.Inject
 
 class CategoriesFragment @Inject constructor(
     private val categoriesViewModel: CategoriesViewModel
-) : BaseFragment(), CategoryInterface {
+) : BaseFragment(), ItemClickListener {
     
     private val adapter by lazy {
         CategoryAdapter(this)
     }
     
     private lateinit var binding: FragmentCategoriesBinding
-    
-    private val _context by lazy {
-        requireContext()
-    }
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +37,7 @@ class CategoriesFragment @Inject constructor(
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        DividerItemDecoration(_context, LinearLayoutManager.VERTICAL).run {
+        DividerItemDecoration(nonNullContext, LinearLayoutManager.VERTICAL).run {
             binding.categories.addItemDecoration(this)
         }
         actionBarController?.setTitle(R.string.title_categories)
@@ -65,9 +62,9 @@ class CategoriesFragment @Inject constructor(
         }
         return super.onOptionsItemSelected(item)
     }
-    
-    override fun onItemClick(categoryName: String?) {
-        categoryName?.let {
+
+    override fun onItemClick(id: Any) {
+        (id as? String)?.let {
             navigateToCategory(it)
         }
     }

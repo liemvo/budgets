@@ -8,8 +8,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.vad.budgets.databinding.ActivityMainBinding
-import com.vad.budgets.ui.actionbar.ActionBarController
-import com.vad.budgets.ui.navigation.NavManager
+import com.vad.budgets.ui.common.actionbar.ActionBarController
+import com.vad.budgets.ui.common.navigation.NavManager
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface TransactionRepository {
+interface TransactionsRepository {
     fun getAllTransaction(): LiveData<List<Transaction>>
 }
 
 @Singleton
-class TransactionRepositoryImpl @Inject constructor(private val transactionDao: TransactionDao): TransactionRepository {
+class TransactionsRepositoryImpl @Inject constructor(private val transactionDao: TransactionDao): TransactionsRepository {
     override fun getAllTransaction(): LiveData<List<Transaction>> = transactionDao.getAll()
 }

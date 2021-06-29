@@ -27,15 +27,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:visibility="@{viewModel.transactions != null &amp;&amp; viewModel.transactions.size() > 0 ? View.VISIBLE : View.GONE}"
-            tools:itemCount="6"
-            tools:listitem="@layout/item_category"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_transaction"
             tools:visibility="visible" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"
-            android:text="@string/no_categories_message"
+            android:text="@string/no_transactions_message"
             android:visibility="@{viewModel.transactions == null || viewModel.transactions.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

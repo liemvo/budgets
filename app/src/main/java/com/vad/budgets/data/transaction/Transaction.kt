@@ -2,6 +2,7 @@ package com.vad.budgets.data.transaction
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.vad.budgets.ui.common.diff.DiffInterface
 
 @Entity(tableName = "transactions")
 data class Transaction(
@@ -13,21 +14,26 @@ data class Transaction(
     val currency: String,
     val transactionType: Int,
     val note: String? = null,
-    val date: Long
-) {
+    val date: Long,
+) : DiffInterface {
     override fun equals(other: Any?): Boolean {
         val otherTransaction = other as? Transaction
         if (otherTransaction != null) {
             return title == otherTransaction.title
-                && categoryName == otherTransaction.categoryName
-                && amount == otherTransaction.amount
-                && currency == otherTransaction.currency
-                && transactionType == otherTransaction.transactionType
-                && note == otherTransaction.note
-                && date == otherTransaction.date
+                    && categoryName == otherTransaction.categoryName
+                    && amount == otherTransaction.amount
+                    && currency == otherTransaction.currency
+                    && transactionType == otherTransaction.transactionType
+                    && note == otherTransaction.note
+                    && date == otherTransaction.date
         }
         return false
     }
+
+    val isExpense get() = transactionType == TransactionType.EXPENSE.type
+
+    override val diffIdentify: Any
+        get() = id
 }
 
 sealed class TransactionType(val type: Int) {
@@ -42,4 +48,5 @@ sealed class Currency(val value: String) {
 
 object StaticData {
     val currencies = listOf(Currency.NZD, Currency.USD)
+    val transactions = listOf(TransactionType.EXPENSE, TransactionType.REVENUE)
 }

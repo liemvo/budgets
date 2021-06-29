@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.input
+package com.vad.budgets.ui.common.input
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

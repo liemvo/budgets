@@ -1,4 +1,4 @@
-package com.vad.budgets.ui.navigation
+package com.vad.budgets.ui.common.navigation
 
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
