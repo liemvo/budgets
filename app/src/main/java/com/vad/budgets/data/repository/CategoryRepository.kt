@@ -1,6 +1,8 @@
-package com.vad.budgets.data.category
+package com.vad.budgets.data.repository
 
 import androidx.lifecycle.LiveData
+import com.vad.budgets.data.category.Category
+import com.vad.budgets.data.category.CategoryDao
 import javax.inject.Inject
 import javax.inject.Singleton
 

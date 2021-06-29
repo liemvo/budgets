@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.vad.budgets.BudgetApplication
 import com.vad.budgets.R
 import com.vad.budgets.data.category.Category
-import com.vad.budgets.data.category.CategoryRepository
+import com.vad.budgets.data.repository.CategoryRepository
 import com.vad.budgets.data.toCurrency
 import com.vad.budgets.data.transaction.Currency
 import com.vad.budgets.data.transaction.StaticData

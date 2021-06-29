@@ -17,4 +17,6 @@
     <string name="category_name_duplicated_error">Name is duplicated</string>
 
     <string name="no_transactions_message">You have no transactions</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="edit_transaction">Edit transaction</string>
 </resources>

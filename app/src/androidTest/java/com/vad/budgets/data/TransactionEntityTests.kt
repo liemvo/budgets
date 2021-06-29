@@ -113,7 +113,7 @@ class TransactionEntityTests {
     
     @Test
     @Throws(IOException::class)
-    fun deleteTransaction() {
+    fun deleteTransactions() {
         val expense = Transaction(
             title = "Lunch",
             categoryName = "Rent",
@@ -185,7 +185,49 @@ class TransactionEntityTests {
         assertEquals(2, transactions.size)
         assertEquals(revenue, transactions.first())
         assertEquals(expense, transactions.last())
-        
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun deleteTransaction() {
+        val expense = Transaction(
+            title = "Lunch",
+            categoryName = "Rent",
+            amount = 15.0f,
+            currency = currency,
+            transactionType = expense,
+            date = 40L
+        )
+
+        val revenue = Transaction(
+            title = "Sale",
+            categoryName = "Business",
+            amount = 15.0f,
+            currency = currency,
+            transactionType = revenue,
+            date = 60L
+        )
+
+        val expense1 = Transaction(
+            title = "Lunch",
+            categoryName = "Rent",
+            amount = 15.0f,
+            currency = currency,
+            transactionType = TransactionEntityTests.expense,
+            date = 80L
+        )
+        runBlockingTest {
+            transactionDao.insert(expense, revenue, expense1)
+        }
+
+        var transactions = transactionDao.getAll().getOrAwaitValue()
+
+        runBlockingTest {
+            transactionDao.delete(transactions.first())
+        }
+
+        transactions = transactionDao.getAll().getOrAwaitValue()
+        assertEquals(2, transactions.size)
     }
     
     companion object {

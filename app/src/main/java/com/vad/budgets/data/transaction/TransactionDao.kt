@@ -2,6 +2,7 @@ package com.vad.budgets.data.transaction
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -20,6 +21,9 @@ interface TransactionDao {
     
     @Update
     fun update(transaction: Transaction): Int
+
+    @Delete
+    fun delete(transaction: Transaction)
     
     @Query("DELETE FROM transactions")
     fun clearTransactions()

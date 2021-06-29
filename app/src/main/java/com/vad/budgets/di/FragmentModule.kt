@@ -4,6 +4,8 @@ import com.vad.budgets.ui.budget.BudgetsFragment
 import com.vad.budgets.ui.category.CategoriesFragment
 import com.vad.budgets.ui.category.details.CategoryFragment
 import com.vad.budgets.ui.transaction.TransactionsFragment
+import com.vad.budgets.ui.transaction.details.TransactionDetailsFragment
+import com.vad.budgets.ui.transaction.details.TransactionDetailsFragmentArgs
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -20,4 +22,7 @@ abstract class FragmentModule {
     
     @ContributesAndroidInjector
     abstract fun contributeTransactionsFragment(): TransactionsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeTransactionDetailsFragment(): TransactionDetailsFragment
 }

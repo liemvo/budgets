@@ -1,7 +1,7 @@
 package com.vad.budgets.ui.category
 
 import androidx.lifecycle.ViewModel
-import com.vad.budgets.data.category.CategoryRepository
+import com.vad.budgets.data.repository.CategoryRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

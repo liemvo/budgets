@@ -54,10 +54,14 @@ class TransactionsFragment @Inject constructor(
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_add) {
+            TransactionsFragmentDirections.openDetailTransaction().navigateSafe()
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onItemClick(id: Any) {
+        (id as? Long)?.let {
+            TransactionsFragmentDirections.openDetailTransaction(it).navigateSafe()
+        }
     }
 }
