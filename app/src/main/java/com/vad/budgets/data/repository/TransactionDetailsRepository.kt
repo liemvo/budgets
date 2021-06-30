@@ -12,7 +12,7 @@ interface TransactionDetailsRepository {
     suspend fun getTransaction(id: Long): Transaction
     suspend fun updateTransaction(transaction: Transaction)
     suspend fun addTransaction(transaction: Transaction)
-    suspend fun getAllActiveCategory(): LiveData<List<Category>>
+    suspend fun getCategories(isEditing: Boolean): LiveData<List<Category>>
 }
 
 @Singleton
@@ -28,5 +28,9 @@ class TransactionDetailsRepositoryImpl @Inject constructor(
         transactionDao.insert(transaction)
     }
 
-    override suspend fun getAllActiveCategory(): LiveData<List<Category>> = categoryDao.getAllActive()
+    override suspend fun getCategories(isEditing: Boolean): LiveData<List<Category>> = if(isEditing) {
+        categoryDao.getAll()
+    } else {
+        categoryDao.getAllActive()
+    }
 }
