@@ -21,8 +21,12 @@
     <string name="edit_transaction">Edit transaction</string>
     <string name="transaction_name">Transaction name</string>
     <string name="transaction_account">Account</string>
+    <string name="transaction_budget">Budget</string>
     <string name="transaction_value">Value</string>
     <string name="transaction_note">Note</string>
     <string name="transaction_date">Date</string>
+    <string name="transaction_type">Type</string>
     <string name="transaction_receipt">Receipt</string>
+    <string name="transaction_type_expense">Expense</string>
+    <string name="transaction_type_revenue">Revenue</string>
 </resources>

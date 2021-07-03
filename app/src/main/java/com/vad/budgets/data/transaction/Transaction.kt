@@ -48,5 +48,5 @@ sealed class Currency(val value: String) {
 
 object StaticData {
     val currencies = listOf(Currency.NZD, Currency.USD)
-    val transactions = listOf(TransactionType.EXPENSE, TransactionType.REVENUE)
+    val transactionTypes = listOf(TransactionType.EXPENSE, TransactionType.REVENUE)
 }

@@ -11,6 +11,7 @@ import com.vad.budgets.data.repository.TransactionDetailsRepository
 import com.vad.budgets.data.transaction.Currency
 import com.vad.budgets.data.transaction.StaticData
 import com.vad.budgets.data.transaction.Transaction
+import com.vad.budgets.data.transaction.TransactionType
 import com.vad.budgets.ui.common.input.DropdownModel
 import com.vad.budgets.ui.common.input.TextFieldInput
 import javax.inject.Inject
@@ -32,9 +33,11 @@ class TransactionDetailsViewModel @Inject constructor(
     val transactionNote = TextFieldInput(application.getString(R.string.transaction_note))
     val currencyDropdownModel = DropdownModel<Currency>(application.getString(R.string.currency))
     val categoryDropDownModel = DropdownModel<Category>(application.getString(R.string.title_budgets))
+    val transactionTypeModel  = DropdownModel<TransactionType>(application.getString(R.string.transaction_type))
     private lateinit var categories: LiveData<List<Category>>
     init {
         currencyDropdownModel.update(StaticData.currencies, Currency.NZD)
+        transactionTypeModel.update(StaticData.transactionTypes, TransactionType.EXPENSE)
         viewModelScope.launch(Dispatchers.IO) {
             categories = transactionDetailsRepository.getCategories(true)
             withContext(Dispatchers.Main) {
