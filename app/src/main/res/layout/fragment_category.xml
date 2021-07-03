@@ -65,7 +65,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/currency_spinner"
             android:layout_width="@dimen/currency_spinner_width"
             android:layout_height="wrap_content"

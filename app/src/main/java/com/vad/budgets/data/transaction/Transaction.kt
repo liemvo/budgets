@@ -10,7 +10,7 @@ data class Transaction(
     var id: Long = 0,
     val title: String,
     val categoryName: String,
-    val amount: Float,
+    val amount: String,
     val currency: String,
     val transactionType: Int,
     val note: String? = null,

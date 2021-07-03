@@ -14,6 +14,11 @@ class DropdownModel<T>(override val title: String) : InputInterface {
         this.options.postValue(options)
         this.selectedOption.postValue(selectedOption)
     }
+
+    fun updateUI(options: List<T>, selectedOption: T) {
+        this.options.value = options
+        this.selectedOption.value = selectedOption
+    }
     
     override fun showError(error: String) = this.error.postValue(error)
     override fun clearError() = error.postValue("")

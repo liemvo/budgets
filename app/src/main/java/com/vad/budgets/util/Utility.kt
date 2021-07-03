@@ -6,10 +6,9 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-
 object Utility {
     private val calendar = Calendar.getInstance()
-    private const val DATE_FORMAT = "MMM, dd YYYY"
+    private const val DATE_FORMAT = "MMM dd, YYYY"
 
     val numberFormat: NumberFormat = NumberFormat.getInstance().apply {
         maximumFractionDigits = 2
@@ -36,9 +35,12 @@ object Utility {
             calendar.set(Calendar.YEAR, it)
         }
 
-        val localMonth = month ?: calendar.get(Calendar.MONTH)
-        calendar.set(calendar.get(Calendar.YEAR), localMonth,
-            calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        val localMonth = month ?: calendar.get(Calendar.MONTH) - 1
+        calendar.set(
+            calendar.get(Calendar.YEAR),
+            localMonth,
+            calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1
+        )
         calendar.set(Calendar.HOUR_OF_DAY, 23)
         calendar.set(Calendar.MINUTE, 59)
         calendar.set(Calendar.SECOND, 59)
