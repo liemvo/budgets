@@ -63,6 +63,8 @@ class TransactionDetailsViewModelTest {
     @Test
     fun wontInvokeGetTransactionDetails() {
         transactionDetailsViewModel.getExistTransaction(-1)
+
+        verify(repository).getCategories(false)
     }
 
     @Test
@@ -81,6 +83,7 @@ class TransactionDetailsViewModelTest {
 
         transactionDetailsViewModel.getExistTransaction(id)
 
+        verify(repository).getCategories(false)
         verify(repository).getTransaction(id)
         transactionDetailsViewModel.transaction.observeForTesting {
             assertEquals(transaction, transactionDetailsViewModel.transaction.value)
@@ -95,7 +98,6 @@ class TransactionDetailsViewModelTest {
         verify(application).getString(R.string.currency)
         verify(application).getString(R.string.title_budgets)
         verify(application).getString(R.string.transaction_type)
-        verify(repository).getCategories(true)
     }
 
     companion object {

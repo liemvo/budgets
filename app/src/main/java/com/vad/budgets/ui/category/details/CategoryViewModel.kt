@@ -118,8 +118,8 @@ class CategoryViewModel @Inject constructor(
     
     fun resetFields() {
         category.postValue(null)
-        nameInput.text.postValue("")
-        defaultValueInput.text.postValue("")
+        nameInput.update("")
+        defaultValueInput.update("")
         currencyDropdownModel.selectedOption.postValue(Currency.NZD)
         isActive.postValue(true)
         _workStatus.postValue(WorkStatus.Initial)

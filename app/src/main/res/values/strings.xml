@@ -20,11 +20,13 @@
     <string name="add_transaction">Add transaction</string>
     <string name="edit_transaction">Edit transaction</string>
     <string name="transaction_name">Transaction name</string>
+    <string name="transaction_name_error">Transaction name should be longer than 3 characters.</string>
     <string name="transaction_account">Account</string>
     <string name="transaction_budget">Budget</string>
     <string name="transaction_value">Value</string>
+    <string name="transaction_value_error">Value should bigger than zero</string>
     <string name="transaction_note">Note</string>
-    <string name="transaction_date">Date</string>
+    <string name="transaction_date">Select date</string>
     <string name="transaction_type">Type</string>
     <string name="transaction_save">Save</string>
     <string name="transaction_delete">Delete</string>

@@ -10,6 +10,7 @@ data class Transaction(
     var id: Long = 0,
     val title: String,
     val categoryName: String,
+    val accountName: String? = null,
     val amount: Float,
     val currency: String,
     val transactionType: Int,
@@ -22,6 +23,7 @@ data class Transaction(
             return title == otherTransaction.title
                     && categoryName == otherTransaction.categoryName
                     && amount == otherTransaction.amount
+                    && accountName == otherTransaction.accountName
                     && currency == otherTransaction.currency
                     && transactionType == otherTransaction.transactionType
                     && note == otherTransaction.note

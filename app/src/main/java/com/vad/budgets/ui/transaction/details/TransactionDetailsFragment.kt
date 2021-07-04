@@ -34,6 +34,7 @@ class TransactionDetailsFragment : BaseFragment() {
         arguments?.let {
             val id = TransactionDetailsFragmentArgs.fromBundle(it).id
             val titleId = if (id == DEFAULT_NEW_ID) {
+                viewModel.resetValues()
                 R.string.title_add_category
             } else {
                 viewModel.getExistTransaction(id)
