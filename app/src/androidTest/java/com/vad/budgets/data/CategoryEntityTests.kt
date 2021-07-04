@@ -56,7 +56,7 @@ class CategoryEntityTests {
             categoryDao.insert(category)
         }
         
-        val categories = categoryDao.getAll().getOrAwaitValue()
+        val categories = categoryDao.getAllCategoriesLiveData().getOrAwaitValue()
         
         val savedCategory = categories.first()
         
@@ -68,13 +68,12 @@ class CategoryEntityTests {
     @Test
     @Throws(IOException::class)
     fun updateCategory() {
-        val category =
-            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
         runBlockingTest {
             categoryDao.insert(category)
         }
         
-        val savedCategory = categoryDao.getAll().getOrAwaitValue().first()
+        val savedCategory = categoryDao.getAllCategoriesLiveData().getOrAwaitValue().first()
         val newCategory = savedCategory.copy(isActive = false)
         categoryDao.update(newCategory)
         val updatedCategory = categoryDao.getCategoryByName(savedCategory.name)
@@ -91,14 +90,14 @@ class CategoryEntityTests {
             categoryDao.insert(category)
         }
         
-        val categories = categoryDao.getAll().getOrAwaitValue()
+        val categories = categoryDao.getAllCategoriesLiveData().getOrAwaitValue()
         
         assertTrue(categories.size == 1)
         
         runBlockingTest {
             categoryDao.clearCategories()
         }
-        assertTrue(categoryDao.getAll().getOrAwaitValue().isEmpty())
+        assertTrue(categoryDao.getAllCategoriesLiveData().getOrAwaitValue().isEmpty())
     }
     
     @Test
@@ -116,7 +115,7 @@ class CategoryEntityTests {
             assertEquals(-1, result2)
         }
         
-        val categories = categoryDao.getAll().getOrAwaitValue()
+        val categories = categoryDao.getAllCategoriesLiveData().getOrAwaitValue()
         
         assertTrue(categories.size == 1)
         val savedCategory = categories.first()
@@ -127,19 +126,28 @@ class CategoryEntityTests {
     
     @Test
     @Throws(IOException::class)
-    fun getAllActiveCategory() {
-        val category =
-            Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
-        val category2 =
-            Category(name = "Investment", defaultAmount = 50f, isActive = true, currency = currency)
-        val category3 =
-            Category(name = "Work", defaultAmount = 50f, isActive = false, currency = currency)
-        runBlockingTest {
-            categoryDao.insertAll(category, category2, category3)
-        }
+    fun getAllActiveCategoryLiveData() {
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category2 = Category(name = "Investment", defaultAmount = 50f, isActive = true, currency = currency)
+        val category3 = Category(name = "Work", defaultAmount = 50f, isActive = false, currency = currency)
+        categoryDao.insertAll(category, category2, category3)
         
-        assertTrue(categoryDao.getAll().getOrAwaitValue().size == 3)
-        assertTrue(categoryDao.getAllActive().getOrAwaitValue().size == 2)
+        assertTrue(categoryDao.getAllCategoriesLiveData().getOrAwaitValue().size == 3)
+        assertTrue(categoryDao.getAllActiveCategoriesLiveData().getOrAwaitValue().size == 2)
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun getAllActiveCategory() {
+        val category = Category(name = "Rent", defaultAmount = 450f, isActive = true, currency = currency)
+        val category2 = Category(name = "Investment", defaultAmount = 50f, isActive = true, currency = currency)
+        val category3 = Category(name = "Work", defaultAmount = 50f, isActive = false, currency = currency)
+
+        categoryDao.insertAll(category, category2, category3)
+
+
+        assertTrue(categoryDao.getAllCategories().size == 3)
+        assertTrue(categoryDao.getAllActiveCategories().size == 2)
     }
     
     companion object {

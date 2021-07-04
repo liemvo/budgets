@@ -10,10 +10,16 @@ import androidx.room.Update
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM categories ORDER BY name DESC")
-    fun getAll(): LiveData<List<Category>>
+    fun getAllCategoriesLiveData(): LiveData<List<Category>>
+
+    @Query("SELECT * FROM categories ORDER BY name DESC")
+    fun getAllCategories(): List<Category>
     
     @Query("SELECT * FROM categories where isActive = 1 ORDER BY name DESC")
-    fun getAllActive(): LiveData<List<Category>>
+    fun getAllActiveCategoriesLiveData(): LiveData<List<Category>>
+
+    @Query("SELECT * FROM categories where isActive = 1 ORDER BY name DESC")
+    fun getAllActiveCategories(): List<Category>
     
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(category: Category): Long

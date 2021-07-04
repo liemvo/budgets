@@ -2,11 +2,15 @@ package com.vad.budgets.ui.transaction.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentTransactionDetailsBinding
 import com.vad.budgets.ui.common.actionbar.BaseFragment
+import com.vad.budgets.ui.transaction.details.TransactionDetailsViewModel.Companion.DEFAULT_NEW_ID
 import javax.inject.Inject
 
 class TransactionDetailsFragment : BaseFragment() {
@@ -32,10 +36,36 @@ class TransactionDetailsFragment : BaseFragment() {
             val titleId = if (id == DEFAULT_NEW_ID) {
                 R.string.title_add_category
             } else {
+                viewModel.getExistTransaction(id)
                 R.string.title_edit_category
             }
             actionBarController?.setTitle(titleId)
         }
+        setHasOptionsMenu(true)
+        viewModel.status.observe(viewLifecycleOwner) {
+            if (it.isFinished) actionBarController?.onBackPressed()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_transaction_details, menu)
+        viewModel.transaction.observe(viewLifecycleOwner) {
+            menu.findItem(R.id.action_delete).isVisible = it != null
+        }
+        viewModel.status.observe(viewLifecycleOwner) {
+            menu.findItem(R.id.action_delete).isEnabled = !it.isLoading
+            menu.findItem(R.id.action_save).isEnabled = !it.isLoading
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_save) {
+            viewModel.saveTransaction()
+        } else if (item.itemId == R.id.action_delete) {
+            viewModel.deleteTransaction()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -44,9 +74,5 @@ class TransactionDetailsFragment : BaseFragment() {
         actionBarController?.onNavigationIconClicked {
             actionBarController?.onBackPressed()
         }
-    }
-
-    companion object {
-        private const val DEFAULT_NEW_ID = -1L
     }
 }

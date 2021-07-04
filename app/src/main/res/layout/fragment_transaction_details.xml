@@ -5,8 +5,12 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <import type="com.vad.budgets.ui.common.binding.CurrencyBindingAdapter" />
+
         <import type="com.vad.budgets.ui.common.binding.CategoryBindingAdapter" />
+
         <import type="com.vad.budgets.ui.common.binding.TypeBindingAdapter" />
 
         <variable
@@ -14,148 +18,161 @@
             type="com.vad.budgets.ui.transaction.details.TransactionDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/large_margin"
-        tools:context=".ui.transaction.details.TransactionDetailsFragment">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/transaction_name_input"
-            android:layout_width="0dp"
+        <ProgressBar
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@{viewModel.transactionName.title}"
-            app:errorText="@{viewModel.transactionName.error}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.status.loading ? View.VISIBLE : View.GONE}" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/transaction_text_field"
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/large_margin"
+            android:visibility="@{viewModel.status.loading ? View.GONE : View.VISIBLE}"
+            tools:context=".ui.transaction.details.TransactionDetailsFragment">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/transaction_name_input"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:focusable="@{!viewModel.transactionName.disabled}"
-                android:inputType="text"
-                android:text="@={viewModel.transactionName.text}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@{viewModel.transactionName.title}"
+                app:errorText="@{viewModel.transactionName.error}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/account_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:hint="@{viewModel.accountName.title}"
-            app:errorText="@{viewModel.accountName.error}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/transaction_name_input">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/transaction_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="@{!viewModel.transactionName.disabled}"
+                    android:inputType="text"
+                    android:text="@={viewModel.transactionName.text}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_text_field"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/account_input"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:focusable="@{!viewModel.accountName.disabled}"
-                android:inputType="text"
-                android:text="@={viewModel.accountName.text}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="@{viewModel.accountName.title}"
+                app:errorText="@{viewModel.accountName.error}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transaction_name_input">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/value_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:hint="@{viewModel.transactionValue.title}"
-            app:errorText="@{viewModel.transactionValue.error}"
-            app:layout_constraintEnd_toStartOf="@id/currency_spinner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/account_input">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/account_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="@{!viewModel.accountName.disabled}"
+                    android:inputType="text"
+                    android:text="@={viewModel.accountName.text}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/value_text_field"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/value_input"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:focusable="@{!viewModel.transactionValue.disabled}"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.transactionValue.text}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="@{viewModel.transactionValue.title}"
+                app:errorText="@{viewModel.transactionValue.error}"
+                app:layout_constraintEnd_toStartOf="@id/currency_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/account_input">
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/currency_spinner"
-            android:layout_width="@dimen/currency_spinner_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_margin"
-            android:selectedItemPosition="@={CurrencyBindingAdapter.toSelectedCurrencyIndex(viewModel.currencyDropdownModel.options, viewModel.currencyDropdownModel.selectedOption)}"
-            app:items="@{viewModel.currencyDropdownModel.options}"
-            app:layout_constraintBottom_toBottomOf="@id/value_input"
-            app:layout_constraintEnd_toEndOf="@id/transaction_name_input"
-            app:layout_constraintTop_toTopOf="@id/value_input" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/value_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="@{!viewModel.transactionValue.disabled}"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.transactionValue.text}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/note_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:hint="@{viewModel.transactionNote.title}"
-            app:errorText="@{viewModel.transactionNote.error}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/value_input">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/note_text_field"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/currency_spinner"
+                android:layout_width="@dimen/currency_spinner_width"
                 android:layout_height="wrap_content"
-                android:lines="4"
-                android:focusable="@{!viewModel.transactionNote.disabled}"
-                android:inputType="text"
-                android:text="@={viewModel.transactionNote.text}" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="@dimen/small_margin"
+                android:selectedItemPosition="@={CurrencyBindingAdapter.toSelectedCurrencyIndex(viewModel.currencyDropdownModel.options, viewModel.currencyDropdownModel.selectedOption)}"
+                app:items="@{viewModel.currencyDropdownModel.options}"
+                app:layout_constraintBottom_toBottomOf="@id/value_input"
+                app:layout_constraintEnd_toEndOf="@id/transaction_name_input"
+                app:layout_constraintTop_toTopOf="@id/value_input" />
 
-        <TextView
-            android:id="@+id/budget_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:text="@string/transaction_budget"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintBottom_toBottomOf="@id/budget_spinner"
-            app:layout_constraintEnd_toStartOf="@id/budget_spinner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/budget_spinner" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/note_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:hint="@{viewModel.transactionNote.title}"
+                app:errorText="@{viewModel.transactionNote.error}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/value_input">
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/budget_spinner"
-            android:layout_width="@dimen/category_spinner_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:selectedItemPosition="@={CategoryBindingAdapter.toSelectedCategoryIndex(viewModel.categoryDropDownModel.options, viewModel.categoryDropDownModel.selectedOption)}"
-            app:items="@{viewModel.categoryDropDownModel.options}"
-            app:layout_constraintTop_toBottomOf="@id/note_input"
-            app:layout_constraintEnd_toEndOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/note_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="@{!viewModel.transactionNote.disabled}"
+                    android:inputType="text"
+                    android:lines="4"
+                    android:text="@={viewModel.transactionNote.text}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/type_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:text="@string/transaction_type"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintBottom_toBottomOf="@id/type_spinner"
-            app:layout_constraintEnd_toStartOf="@id/budget_spinner"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/type_spinner" />
+            <TextView
+                android:id="@+id/budget_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:text="@string/transaction_budget"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toBottomOf="@id/budget_spinner"
+                app:layout_constraintEnd_toStartOf="@id/budget_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/budget_spinner" />
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/type_spinner"
-            android:layout_width="@dimen/category_spinner_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:selectedItemPosition="@={TypeBindingAdapter.toSelectedTransactionTypeIndex(viewModel.transactionTypeModel.options, viewModel.transactionTypeModel.selectedOption)}"
-            app:types="@{viewModel.transactionTypeModel.options}"
-            app:layout_constraintTop_toBottomOf="@id/budget_spinner"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/budget_spinner"
+                android:layout_width="@dimen/category_spinner_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:selectedItemPosition="@={CategoryBindingAdapter.toSelectedCategoryIndex(viewModel.categoryDropDownModel.options, viewModel.categoryDropDownModel.selectedOption)}"
+                app:items="@{viewModel.categoryDropDownModel.options}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/note_input" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/type_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:text="@string/transaction_type"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toBottomOf="@id/type_spinner"
+                app:layout_constraintEnd_toStartOf="@id/budget_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/type_spinner" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/type_spinner"
+                android:layout_width="@dimen/category_spinner_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:selectedItemPosition="@={TypeBindingAdapter.toSelectedTransactionTypeIndex(viewModel.transactionTypeModel.options, viewModel.transactionTypeModel.selectedOption)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/budget_spinner"
+                app:types="@{viewModel.transactionTypeModel.options}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </layout>

@@ -7,7 +7,7 @@
     <string name="title_budgets">Budgets</string>
     <string name="no_categories_message">You have no categories!</string>
 
-    <string name="add_category">Add category</string>
+    <string name="category_save">Save</string>
     <string name="category_name">Category name</string>
 
     <string name="currency">Currency</string>
@@ -26,6 +26,8 @@
     <string name="transaction_note">Note</string>
     <string name="transaction_date">Date</string>
     <string name="transaction_type">Type</string>
+    <string name="transaction_save">Save</string>
+    <string name="transaction_delete">Delete</string>
     <string name="transaction_receipt">Receipt</string>
     <string name="transaction_type_expense">Expense</string>
     <string name="transaction_type_revenue">Revenue</string>

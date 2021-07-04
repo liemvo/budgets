@@ -17,7 +17,7 @@ interface CategoryRepository {
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao
 ) : CategoryRepository {
-    override fun getAllCategory(): LiveData<List<Category>> = categoryDao.getAll()
+    override fun getAllCategory(): LiveData<List<Category>> = categoryDao.getAllCategoriesLiveData()
     
     override suspend fun insertCategory(category: Category) {
         categoryDao.insert(category)
