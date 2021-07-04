@@ -1,5 +1,6 @@
 package com.vad.budgets.util
 
+import java.text.DateFormatSymbols
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -12,6 +13,13 @@ object Utility {
 
     val numberFormat: NumberFormat = NumberFormat.getInstance().apply {
         maximumFractionDigits = 2
+    }
+
+    val months = DateFormatSymbols.getInstance().months.filterNot { it.isEmpty() }
+
+    val currentYear: Int get() = calendar.run {
+        time = Date()
+        get(Calendar.YEAR)
     }
 
     fun getFirstDateTimeOfMonth(month: Int?, year: Int? = null): Date {
