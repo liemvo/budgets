@@ -46,8 +46,9 @@ class TransactionDetailsViewModel @Inject constructor(
         transactionTypeModel.update(StaticData.transactionTypes, TransactionType.EXPENSE)
         viewModelScope.launch(Dispatchers.IO) {
             val categories = transactionDetailsRepository.getCategories(true)
-            if (!categories.isNullOrEmpty()) categoryDropDownModel.update(categories,
-                categories.first())
+            if (!categories.isNullOrEmpty()) {
+                categoryDropDownModel.update(categories, categories.first())
+            }
         }
         transactionName.text.addSource(transaction) { transaction ->
             transaction?.let {

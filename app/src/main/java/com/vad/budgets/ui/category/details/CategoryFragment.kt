@@ -44,8 +44,8 @@ class CategoryFragment : BaseFragment() {
             actionBarController?.setTitle(titleId)
         }
         setHasOptionsMenu(true)
-        viewModel.isFinished.observe(viewLifecycleOwner) {
-            if (it) {
+        viewModel.status.observe(viewLifecycleOwner) {
+            if (it.isFinished) {
                 viewModel.clearSaveOrUpdateState()
                 actionBarController?.onBackPressed()
             }

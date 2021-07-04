@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.vad.budgets.BudgetApplication
 import com.vad.budgets.R
+import com.vad.budgets.data.WorkStatus
 import com.vad.budgets.data.category.Category
 import com.vad.budgets.data.repository.CategoryRepository
 import com.vad.budgets.data.toCurrency
@@ -33,12 +34,8 @@ class CategoryViewModel @Inject constructor(
     val currencyDropdownModel = DropdownModel<Currency>(app.getString(R.string.currency))
     val isActive = MediatorLiveData<Boolean>()
 
-    // TODO need to refactor with state
-    private val loading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> get() = loading
-    
-    private val finish = MutableLiveData(false)
-    val isFinished: LiveData<Boolean> get() = finish
+    private val _workStatus = MutableLiveData<WorkStatus<Unit>>(WorkStatus.Initial)
+    val status: LiveData<WorkStatus<Unit>> get() = _workStatus
     
     private val allCategory = categoryRepository.getAllCategory()
     
@@ -58,20 +55,19 @@ class CategoryViewModel @Inject constructor(
     }
     
     fun loadCategory(name: String) {
-        loading.postValue(true)
+        _workStatus.value = WorkStatus.Loading(null)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 category.postValue(categoryRepository.getCategory(name))
             } catch (exception: Exception) {
                 Timber.e(exception)
             }
-            
-            loading.postValue(false)
+            _workStatus.postValue(WorkStatus.Success(Unit))
         }
     }
     
     fun clearSaveOrUpdateState() {
-        finish.postValue(false)
+        _workStatus.value = WorkStatus.Loading(null)
     }
     
     
@@ -90,8 +86,8 @@ class CategoryViewModel @Inject constructor(
             nameInput.showError(app.getString(R.string.category_name_duplicated_error))
             return
         }
-        
-        loading.postValue(true)
+
+        _workStatus.value = WorkStatus.Loading(null)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (category == null) {
@@ -116,8 +112,7 @@ class CategoryViewModel @Inject constructor(
             } catch (exception: Exception) {
                 Timber.e(exception)
             }
-            loading.postValue(false)
-            finish.postValue(true)
+            _workStatus.postValue(WorkStatus.Finish)
         }
     }
     
@@ -127,5 +122,6 @@ class CategoryViewModel @Inject constructor(
         defaultValueInput.text.postValue("")
         currencyDropdownModel.selectedOption.postValue(Currency.NZD)
         isActive.postValue(true)
+        _workStatus.postValue(WorkStatus.Initial)
     }
 }
