@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentTransactionDetailsBinding
-import com.vad.budgets.ui.common.actionbar.BaseFragment
+import com.vad.budgets.ui.common.BaseFragment
 import com.vad.budgets.ui.transaction.details.TransactionDetailsViewModel.Companion.DEFAULT_NEW_ID
 import javax.inject.Inject
 

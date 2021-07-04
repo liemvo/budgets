@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.vad.budgets.R
 import com.vad.budgets.databinding.FragmentTransactionsBinding
 import com.vad.budgets.ui.common.ItemClickListener
-import com.vad.budgets.ui.common.actionbar.BaseFragment
+import com.vad.budgets.ui.common.BaseFragment
 import javax.inject.Inject
 
 class TransactionsFragment @Inject constructor(

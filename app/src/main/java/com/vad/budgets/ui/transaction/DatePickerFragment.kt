@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
+import com.vad.budgets.ui.common.BaseDialogFragment
 import java.util.Calendar
+import javax.inject.Inject
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 
-class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment : BaseDialogFragment(), DatePickerDialog.OnDateSetListener {
+    @Inject
+    lateinit var eventBus: EventBus
     private val args: DatePickerFragmentArgs by navArgs()
     private val calendar = Calendar.getInstance()
 
@@ -22,7 +26,9 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
         time?.let {
             calendar.timeInMillis = it
-        } ?: run { calendar.timeInMillis = System.currentTimeMillis() }
+        } ?: run {
+            calendar.timeInMillis = System.currentTimeMillis()
+        }
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -33,6 +39,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         calendar.set(year, month, day)
-        EventBus.getDefault().post(SelectedTime(calendar.timeInMillis))
+        eventBus.post(SelectedTime(calendar.timeInMillis))
     }
 }

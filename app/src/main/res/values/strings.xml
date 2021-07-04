@@ -16,9 +16,9 @@
     <string name="category_name_error">Name is invalid</string>
     <string name="category_name_duplicated_error">Name is duplicated</string>
 
-    <string name="no_transactions_message">You have no transactions</string>
-    <string name="add_transaction">Add transaction</string>
-    <string name="edit_transaction">Edit transaction</string>
+    <string name="transactions_no_message">You have no transactions</string>
+    <string name="transaction_add">Add transaction</string>
+    <string name="transaction_edit">Edit transaction</string>
     <string name="transaction_name">Transaction name</string>
     <string name="transaction_name_error">Transaction name should be longer than 3 characters.</string>
     <string name="transaction_account">Account</string>
@@ -33,4 +33,9 @@
     <string name="transaction_receipt">Receipt</string>
     <string name="transaction_type_expense">Expense</string>
     <string name="transaction_type_revenue">Revenue</string>
+
+    <string name="budget_calendar">Calendar</string>
+    <string name="month_year_title">Select date and year</string>
+    <string name="month_year_month">Month</string>
+    <string name="month_year_year">Year</string>
 </resources>

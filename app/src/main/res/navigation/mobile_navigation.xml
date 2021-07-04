@@ -35,7 +35,11 @@
         android:id="@+id/navigation_budgets"
         android:name="com.vad.budgets.ui.budget.BudgetsFragment"
         android:label="@string/title_budgets"
-        tools:layout="@layout/fragment_budgets" />
+        tools:layout="@layout/fragment_budgets" >
+        <action
+            android:id="@+id/open_monty_year_picker"
+            app:destination="@id/monthYearPickerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.vad.budgets.ui.category.details.CategoryFragment"
@@ -51,7 +55,7 @@
         android:id="@+id/transactionDetailsFragment"
         android:name="com.vad.budgets.ui.transaction.details.TransactionDetailsFragment"
         tools:layout="@layout/fragment_transaction_details"
-        android:label="@string/add_transaction" >
+        android:label="@string/transaction_add" >
         <argument
             android:name="id"
             app:argType="long"
@@ -73,4 +77,10 @@
             android:defaultValue="@null"
             app:nullable="true" />
     </dialog>
+    <dialog
+        android:id="@+id/monthYearPickerFragment"
+        android:name="com.vad.budgets.ui.budget.datemonth.MonthYearPickerFragment"
+        android:label="MonthYearPickerFragment"
+        tools:layout="@layout/dialog_month_year"
+        />
 </navigation>

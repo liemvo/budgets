@@ -1,7 +1,8 @@
-package com.vad.budgets.ui.common.actionbar
+package com.vad.budgets.ui.common
 
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.vad.budgets.ui.common.actionbar.ActionBarController
 import com.vad.budgets.ui.common.navigation.NavigationFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
