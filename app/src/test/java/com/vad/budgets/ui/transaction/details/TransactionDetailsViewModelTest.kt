@@ -10,9 +10,11 @@ import com.vad.budgets.data.repository.TransactionDetailsRepository
 import com.vad.budgets.data.transaction.Currency
 import com.vad.budgets.data.transaction.Transaction
 import com.vad.budgets.data.transaction.TransactionType
+import com.vad.budgets.util.getOrAwaitValue
 import com.vad.budgets.util.observeForTesting
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.greenrobot.eventbus.EventBus
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -28,10 +30,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class TransactionDetailsViewModelTest {
 
     @Mock
-    lateinit var application: Application
+    private lateinit var application: Application
 
     @Mock
-    lateinit var repository: TransactionDetailsRepository
+    private lateinit var repository: TransactionDetailsRepository
+
+    @Mock
+    private lateinit var eventBus: EventBus
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -41,7 +46,7 @@ class TransactionDetailsViewModelTest {
     @Before
     fun setUp() {
         initMock()
-        transactionDetailsViewModel = TransactionDetailsViewModel(application, repository)
+        transactionDetailsViewModel = TransactionDetailsViewModel(application, repository, eventBus)
     }
 
     private fun initMock() {
@@ -57,14 +62,16 @@ class TransactionDetailsViewModelTest {
     @After
     fun tearDown() {
         verifyMock()
-        verifyNoMoreInteractions(application, repository)
+        verifyNoMoreInteractions(application, repository, eventBus)
     }
 
     @Test
     fun wontInvokeGetTransactionDetails() {
         transactionDetailsViewModel.getExistTransaction(-1)
 
-        verify(repository).getCategories(false)
+        transactionDetailsViewModel.categoryDropDownModel.options.observeForTesting {
+            verify(repository).getCategories(false)
+        }
     }
 
     @Test
@@ -91,6 +98,7 @@ class TransactionDetailsViewModelTest {
     }
 
     private fun verifyMock() {
+        verify(eventBus).register(transactionDetailsViewModel)
         verify(application).getString(R.string.transaction_name)
         verify(application).getString(R.string.transaction_account)
         verify(application).getString(R.string.transaction_value)

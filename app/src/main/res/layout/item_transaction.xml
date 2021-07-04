@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/amount"
@@ -36,9 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/large_margin"
             android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/large_margin"
+            android:text="@{TransactionExtensionsKt.dateInString(transaction)}"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/amount"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Jun, 20 2021" />
 
         <androidx.constraintlayout.widget.Barrier
@@ -68,11 +71,13 @@
             android:layout_marginStart="@dimen/large_margin"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginBottom="@dimen/large_margin"
             android:text="@{transaction.title}"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintEnd_toStartOf="@id/barrier_right"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Education"
             app:drawableStartCompat="@drawable/ic_baseline_category_24" />
 

@@ -56,5 +56,21 @@
             android:name="id"
             app:argType="long"
             android:defaultValue="-1L"/>
+        <action
+            android:id="@+id/open_date_picker"
+            app:destination="@id/datePickerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false"/>
     </fragment>
+    <dialog
+        android:id="@+id/datePickerFragment"
+        android:name="com.vad.budgets.ui.transaction.DatePickerFragment"
+        android:label="DatePickerFragment" >
+        <argument
+            android:name="dateInMilliSeconds"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </dialog>
 </navigation>

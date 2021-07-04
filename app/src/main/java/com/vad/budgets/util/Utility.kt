@@ -51,4 +51,8 @@ object Utility {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
         return format.format(this)
     }
+
+    fun dateFrom(milliSecond: Long): Date = Date().apply {
+        time = milliSecond
+    }
 }

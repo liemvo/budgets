@@ -125,25 +125,27 @@
                     android:lines="4"
                     android:text="@={viewModel.transactionNote.text}" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/select_date_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/transaction_date"
-                app:layout_constraintTop_toBottomOf="@id/note_input"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/note_input" />
 
             <TextView
                 android:id="@+id/date_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medium_margin"
+                android:text="@{viewModel.timeInString}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                tools:text="Jul 04, 2021"
                 app:layout_constraintBottom_toBottomOf="@id/select_date_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/select_date_button"
-                app:layout_constraintTop_toTopOf="@id/select_date_button" />
+                app:layout_constraintTop_toTopOf="@id/select_date_button"
+                tools:text="Jul 04, 2021" />
 
             <TextView
                 android:id="@+id/budget_text"

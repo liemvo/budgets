@@ -46,6 +46,11 @@ class TransactionDetailsFragment : BaseFragment() {
         viewModel.status.observe(viewLifecycleOwner) {
             if (it.isFinished) actionBarController?.onBackPressed()
         }
+        binding.selectDateButton.setOnClickListener {
+            TransactionDetailsFragmentDirections.openDatePicker(
+                viewModel.timeInMilliSeconds.value?.toString() ?: System.currentTimeMillis().toString()
+            ).navigateSafe()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
