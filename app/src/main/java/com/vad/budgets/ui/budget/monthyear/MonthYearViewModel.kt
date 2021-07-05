@@ -10,7 +10,7 @@ import javax.inject.Singleton
 import org.greenrobot.eventbus.EventBus
 
 @Singleton
-class   MonthYearViewModel @Inject constructor(private val eventBus: EventBus) : ViewModel() {
+class MonthYearViewModel @Inject constructor(private val eventBus: EventBus) : ViewModel() {
     val minValue: Int = 0
     val data by lazy { Utility.pickerItems.map { it.formatMonthYear() } }
 
