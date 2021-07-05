@@ -36,6 +36,5 @@
 
     <string name="budget_calendar">Calendar</string>
     <string name="month_year_title">Select date and year</string>
-    <string name="month_year_month">Month</string>
-    <string name="month_year_year">Year</string>
+    <string name="month_year_month">Month &amp; Year</string>
 </resources>

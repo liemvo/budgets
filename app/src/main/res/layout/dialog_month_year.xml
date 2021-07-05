@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.vad.budgets.ui.budget.monthyear.MonthYearViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,53 +31,36 @@
             android:layout_marginTop="@dimen/large_margin"
             android:text="@string/month_year_month"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintStart_toStartOf="@id/picker_month"
-            app:layout_constraintEnd_toEndOf="@id/picker_month"
+            app:layout_constraintStart_toStartOf="@id/picker"
+            app:layout_constraintEnd_toEndOf="@id/picker"
             app:layout_constraintTop_toBottomOf="@id/title_text" />
 
         <NumberPicker
-            android:id="@+id/picker_month"
+            android:id="@+id/picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/large_margin"
-            app:layout_constraintEnd_toStartOf="@id/picker_year"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:onValueChange="@{(picker, oldValue, newValue) -> viewModel.onDataChange(newValue)}"
+            app:value="@{viewModel.item}"
+            app:minValue="@{viewModel.minValue}"
+            app:maxValue="@{viewModel.data.size - 1}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/month_text" />
-
-        <TextView
-            android:id="@+id/year_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/large_margin"
-            android:text="@string/month_year_year"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintStart_toStartOf="@id/picker_year"
-            app:layout_constraintEnd_toEndOf="@id/picker_year"
-            app:layout_constraintTop_toBottomOf="@id/title_text" />
-
-        <NumberPicker
-            android:id="@+id/picker_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/large_margin"
-            android:layout_marginBottom="@dimen/large_margin"
-            app:layout_constraintBottom_toTopOf="@id/positive_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/picker_month"
-            app:layout_constraintTop_toTopOf="@id/picker_month" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/positive_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
             android:layout_marginEnd="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/large_margin"
             android:text="@android:string/ok"
+            app:layout_constraintTop_toBottomOf="@id/picker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

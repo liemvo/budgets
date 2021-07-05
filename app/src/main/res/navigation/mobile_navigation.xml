@@ -79,7 +79,7 @@
     </dialog>
     <dialog
         android:id="@+id/monthYearPickerFragment"
-        android:name="com.vad.budgets.ui.budget.datemonth.MonthYearPickerFragment"
+        android:name="com.vad.budgets.ui.budget.monthyear.MonthYearPickerFragment"
         android:label="MonthYearPickerFragment"
         tools:layout="@layout/dialog_month_year"
         />

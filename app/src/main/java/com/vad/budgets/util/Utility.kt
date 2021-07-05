@@ -6,21 +6,24 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import org.joda.time.DateTime
 
 object Utility {
     private val calendar = Calendar.getInstance()
     private const val DATE_FORMAT = "MMM dd, YYYY"
+    private const val MONTH_YEAR = "MMMM, YYYY"
+
+    val pickerItems by lazy {
+        (0..150).map {
+            DateTime.now().minusMonths(it).toDate()
+        }
+    }
 
     val numberFormat: NumberFormat = NumberFormat.getInstance().apply {
         maximumFractionDigits = 2
     }
 
     val months = DateFormatSymbols.getInstance().months.filterNot { it.isEmpty() }
-
-    val currentYear: Int get() = calendar.run {
-        time = Date()
-        get(Calendar.YEAR)
-    }
 
     fun getFirstDateTimeOfMonth(month: Int?, year: Int? = null): Date {
         calendar.time = Date()
@@ -59,6 +62,8 @@ object Utility {
         val format = SimpleDateFormat(pattern, Locale.getDefault())
         return format.format(this)
     }
+
+    fun Date.formatMonthYear(): String = format(MONTH_YEAR)
 
     fun dateFrom(milliSecond: Long): Date = Date().apply {
         time = milliSecond
