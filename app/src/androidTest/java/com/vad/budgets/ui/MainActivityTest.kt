@@ -1,22 +1,8 @@
 package com.vad.budgets.ui
 
-import android.view.View
-import android.widget.TextView
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
-import androidx.test.espresso.matcher.ViewMatchers.isSelected
-import androidx.test.espresso.matcher.ViewMatchers.withChild
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.material.internal.BaselineLayout
 import com.vad.budgets.MainActivity
-import com.vad.budgets.R
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.CoreMatchers.instanceOf
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -28,6 +14,8 @@ class MainActivityTest {
     @get:Rule
     var activityScenarioRule = activityScenarioRule<MainActivity>()
 
+    val mainActivityScreen = MainActivityScreen()
+
     @After
     fun tearDown() {
         activityScenarioRule.scenario.close()
@@ -35,22 +23,77 @@ class MainActivityTest {
 
     @Test
     fun defaultSelectedTab() {
-        val scenario = activityScenarioRule.scenario
-
-        onView(withId(R.id.navigation_categories)).check(matches(isNotSelected()))
-        onView(withId(R.id.navigation_transactions)).check(matches(isSelected()))
-        onView(withId(R.id.navigation_budgets)).check(matches(isNotSelected()))
-        
-        verifyTitle("Transactions")
+        mainActivityScreen {
+            categoriesView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Categories") }
+            }
+            transactionsView {
+                isDisplayed()
+                isSelected()
+                hasDescendant { withText("Transactions") }
+            }
+            budgetsView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Budgets") }
+            }
+            actionView {
+                hasDescendant { withText("Transactions") }
+            }
+        }
     }
 
-    private fun verifyTitle(text: String) {
-        onTextViewWithParentId(R.id.tool_bar).check(matches(withText(text)))
+    @Test
+    fun selectCategoriesTab() {
+        mainActivityScreen {
+            categoriesView.perform { click() }
+
+            categoriesView {
+                isDisplayed()
+                isSelected()
+                hasDescendant { withText("Categories") }
+            }
+            transactionsView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Transactions") }
+            }
+            budgetsView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Budgets") }
+            }
+            actionView {
+                hasDescendant { withText("Categories") }
+            }
+        }
     }
 
-    private fun onBaselineLayoutWithParent(id: Int) = onViewWithParentId(id, BaselineLayout::class.java)
+    @Test
+    fun selectBudgetsTab() {
+        mainActivityScreen {
+            budgetsView.perform { click() }
 
-    private fun onTextViewWithParentId(id: Int) = onViewWithParentId(id, TextView::class.java)
-
-    private fun <T: View> onViewWithParentId(id: Int, type: Class<T>) = onView(allOf(instanceOf(type), withParent(withId(id))))
+            categoriesView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Categories") }
+            }
+            transactionsView {
+                isDisplayed()
+                isNotSelected()
+                hasDescendant { withText("Transactions") }
+            }
+            budgetsView {
+                isDisplayed()
+                isSelected()
+                hasDescendant { withText("Budgets") }
+            }
+            actionView {
+                hasDescendant { withText("Budgets") }
+            }
+        }
+    }
 }
