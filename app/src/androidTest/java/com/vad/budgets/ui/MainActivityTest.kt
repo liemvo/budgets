@@ -40,10 +40,7 @@ class MainActivityTest {
         onView(withId(R.id.navigation_categories)).check(matches(isNotSelected()))
         onView(withId(R.id.navigation_transactions)).check(matches(isSelected()))
         onView(withId(R.id.navigation_budgets)).check(matches(isNotSelected()))
-
-//        onTextViewWithParentId(R.id.navigation_categories).check(matches(withText("Categories")))
-//        onTextViewWithParentId(R.id.navigation_transactions).check(matches(withText("Transactions")))
-//        onTextViewWithParentId(R.id.navigation_budgets).check(matches(withText("Budgets")))
+        
         verifyTitle("Transactions")
     }
 
