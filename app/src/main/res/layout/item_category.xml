@@ -30,6 +30,7 @@
             tools:text="Rent" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/status_switch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"

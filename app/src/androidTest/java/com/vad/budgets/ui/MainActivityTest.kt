@@ -3,6 +3,7 @@ package com.vad.budgets.ui
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vad.budgets.MainActivity
+import com.vad.budgets.R
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -27,21 +28,19 @@ class MainActivityTest {
             categoriesView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Categories") }
+                hasDescendant { withText(R.string.title_categories) }
             }
             transactionsView {
                 isDisplayed()
                 isSelected()
-                hasDescendant { withText("Transactions") }
+                hasDescendant { withText(R.string.title_transactions) }
             }
             budgetsView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Budgets") }
+                hasDescendant { withText(R.string.title_budgets) }
             }
-            actionView {
-                hasDescendant { withText("Transactions") }
-            }
+            hasTitle(R.string.title_transactions)
         }
     }
 
@@ -53,21 +52,19 @@ class MainActivityTest {
             categoriesView {
                 isDisplayed()
                 isSelected()
-                hasDescendant { withText("Categories") }
+                hasDescendant { withText(R.string.title_categories) }
             }
             transactionsView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Transactions") }
+                hasDescendant { withText(R.string.title_transactions) }
             }
             budgetsView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Budgets") }
+                hasDescendant { withText(R.string.title_budgets) }
             }
-            actionView {
-                hasDescendant { withText("Categories") }
-            }
+            hasTitle(R.string.title_categories)
         }
     }
 
@@ -79,21 +76,19 @@ class MainActivityTest {
             categoriesView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Categories") }
+                hasDescendant { withText(R.string.title_categories) }
             }
             transactionsView {
                 isDisplayed()
                 isNotSelected()
-                hasDescendant { withText("Transactions") }
+                hasDescendant { withText(R.string.title_transactions) }
             }
             budgetsView {
                 isDisplayed()
                 isSelected()
-                hasDescendant { withText("Budgets") }
+                hasDescendant { withText(R.string.title_budgets) }
             }
-            actionView {
-                hasDescendant { withText("Budgets") }
-            }
+            hasTitle(R.string.title_budgets)
         }
     }
 }

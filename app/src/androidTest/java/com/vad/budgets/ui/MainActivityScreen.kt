@@ -9,6 +9,16 @@ class MainActivityScreen : Screen<MainActivityScreen>() {
     val categoriesView = KView { withId(R.id.navigation_categories) }
     val transactionsView = KView { withId(R.id.navigation_transactions) }
     val budgetsView = KView { withId(R.id.navigation_budgets) }
-
     val actionView = KView { withId(R.id.tool_bar) }
+    fun hasTitle(id: Int) {
+        actionView {
+            hasDescendant { withText(id) }
+        }
+    }
+
+    fun hasTitle(text: String) {
+        actionView {
+            hasDescendant { withText(text) }
+        }
+    }
 }
