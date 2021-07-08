@@ -90,6 +90,7 @@
             app:layout_constraintTop_toBottomOf="@id/category_default_input" />
 
         <ProgressBar
+            android:id="@+id/progress_circular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{viewModel.status.isLoading ? View.VISIBLE : View.GONE}"
