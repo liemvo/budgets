@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vad.budgets.R
+import com.vad.budgets.data.WorkStatus
 import com.vad.budgets.databinding.FragmentCategoriesBinding
 import com.vad.budgets.ui.common.ItemClickListener
 import com.vad.budgets.ui.common.BaseFragment
@@ -47,7 +48,9 @@ class CategoriesFragment @Inject constructor(
         binding.categories.adapter = adapter
         
         categoriesViewModel.categories.observe(viewLifecycleOwner, {
-            adapter.updateList(it)
+            if (it is WorkStatus.Success) {
+                adapter.updateList(it.data)
+            }
         })
     }
     

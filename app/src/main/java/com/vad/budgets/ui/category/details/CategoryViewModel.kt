@@ -4,6 +4,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.vad.budgets.BudgetApplication
 import com.vad.budgets.R
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.collect
 
 @Singleton
 class CategoryViewModel @Inject constructor(
@@ -37,7 +39,11 @@ class CategoryViewModel @Inject constructor(
     private val _workStatus = MutableLiveData<WorkStatus<Unit>>(WorkStatus.Initial)
     val status: LiveData<WorkStatus<Unit>> get() = _workStatus
     
-    private val allCategory = categoryRepository.getAllCategory()
+    private val allCategory = liveData(context = viewModelScope.coroutineContext) {
+        categoryRepository.getAllCategory().collect {
+            emit(it)
+        }
+    }
     
     init {
         currencyDropdownModel.update(StaticData.currencies, Currency.NZD)
@@ -46,7 +52,7 @@ class CategoryViewModel @Inject constructor(
             category?.let {
                 nameInput.text.postValue(it.name)
                 defaultValueInput.text.postValue(Utility.numberFormat.format(it.defaultAmount))
-                category.currency.toCurrency()?.let {
+                category.currency.toCurrency().let {
                     currencyDropdownModel.update(StaticData.currencies, it)
                 }
                 isActive.postValue(it.isActive)
@@ -74,7 +80,7 @@ class CategoryViewModel @Inject constructor(
     fun saveOrUpdateCategory() {
         val name = nameInput.text.value
         val category = category.value
-        val categories = allCategory.value
+        val categories = allCategory.value?.isNullableData
         if (name.isNullOrEmpty()) {
             nameInput.showError(app.getString(R.string.category_name_error))
             return
