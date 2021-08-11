@@ -1,3 +1,4 @@
+
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
     jacoco.excludes = ['jdk.internal.*']
@@ -64,7 +65,7 @@ task jacocoDebugTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 
     def uiTestsData = fileTree(dir: "${buildDir}/outputs/code_coverage/debugAndroidTest/connected/", includes: ["**/*.ec"])
 
     executionData(files([
-            "$project.buildDir/jacoco/testDebugUnitTest.exec",
+            fileTree(dir: "${buildDir}/outputs/**", includes: ["**/*.exec"]),
             uiTestsData
     ]))
 }
