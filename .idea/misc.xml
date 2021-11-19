@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/dialog_month_year.xml" value="0.26268115942028986" />
+        <entry key="app/src/main/res/layout/fragment_budgets.xml" value="0.1677598385469223" />
+        <entry key="app/src/main/res/layout/fragment_categories.xml" value="0.1677598385469223" />
+        <entry key="app/src/main/res/layout/fragment_category.xml" value="0.15172101449275363" />
+        <entry key="app/src/main/res/layout/fragment_transactions.xml" value="0.1677598385469223" />
+        <entry key="app/src/main/res/layout/item_simple.xml" value="0.1677598385469223" />
       </map>
     </option>
   </component>

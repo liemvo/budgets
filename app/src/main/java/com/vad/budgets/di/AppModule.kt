@@ -8,7 +8,7 @@ import javax.inject.Singleton
 import org.greenrobot.eventbus.EventBus
 
 @Module
-class AppModule(private val application: BudgetApplication) {
+class AppModule {
     @Provides
     @Singleton
     fun provideContext(): Context = application
