@@ -1,6 +1,7 @@
 package com.vad.budgets
 
 import android.app.Application
+import com.vad.budgets.di.AppModule
 import com.vad.budgets.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,6 +19,7 @@ class BudgetApplication : Application(), HasAndroidInjector {
         super.onCreate()
         DaggerAppComponent.builder()
             .application(this)
+            .appModule(AppModule(this))
             .build()
             .inject(this)
         if (BuildConfig.DEBUG) {
