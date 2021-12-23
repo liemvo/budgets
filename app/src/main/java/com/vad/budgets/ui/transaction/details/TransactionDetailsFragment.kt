@@ -35,10 +35,10 @@ class TransactionDetailsFragment : BaseFragment() {
             val id = TransactionDetailsFragmentArgs.fromBundle(it).id
             val titleId = if (id == DEFAULT_NEW_ID) {
                 viewModel.resetValues()
-                R.string.title_add_category
+                R.string.title_add_transaction
             } else {
                 viewModel.getExistTransaction(id)
-                R.string.title_edit_category
+                R.string.title_edit_transaction
             }
             actionBarController?.setTitle(titleId)
         }
